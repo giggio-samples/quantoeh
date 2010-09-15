@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition name="QuantoEh" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+  <WebRole name="QuantoEh.WebApp">
+    <InputEndpoints>
+      <InputEndpoint name="HttpIn" protocol="http" port="80" />
+    </InputEndpoints>
+    <ConfigurationSettings>
+      <Setting name="DiagnosticsConnectionString" />
+    </ConfigurationSettings>
+  </WebRole>
+  <WorkerRole name="QuantoEh.Worker">
+    <ConfigurationSettings>
+      <Setting name="DiagnosticsConnectionString" />
+    </ConfigurationSettings>
+  </WorkerRole>
+</ServiceDefinition>
