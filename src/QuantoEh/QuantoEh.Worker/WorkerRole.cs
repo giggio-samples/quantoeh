@@ -8,11 +8,20 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.StorageClient;
+using QuantoEh.Dominio;
 
 namespace QuantoEh.Worker
 {
     public class WorkerRole : RoleEntryPoint
     {
+        public WorkerRole() : this(new Timeline())
+        {
+        }
+        public WorkerRole(ITimeline timeline)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Run()
         {
             // This is a sample worker implementation. Replace with your logic.
@@ -47,6 +56,13 @@ namespace QuantoEh.Worker
                 // Set e.Cancel to true to restart this role instance
                 e.Cancel = true;
             }
+        }
+
+        public FilaParaRetuitar Fila { get; private set; }
+
+        public void ProcessarFilaDeRespostas()
+        {
+            throw new NotImplementedException();
         }
     }
 }

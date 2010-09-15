@@ -62,6 +62,7 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Moq">
       <HintPath>..\..\..\libs\Moq\Moq.dll</HintPath>
     </Reference>
@@ -97,9 +98,17 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QuantoEh.Dominio\QuantoEh.Dominio.csproj">
+      <Project>{D419D7E7-09F4-4F58-A428-75EA922E5AE8}</Project>
+      <Name>QuantoEh.Dominio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuantoEh.WebApp\QuantoEh.WebApp.csproj">
       <Project>{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}</Project>
       <Name>QuantoEh.WebApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuantoEh.Worker\QuantoEh.Worker.csproj">
+      <Project>{348F6451-6844-4ACC-876F-34159EB3E3CF}</Project>
+      <Name>QuantoEh.Worker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

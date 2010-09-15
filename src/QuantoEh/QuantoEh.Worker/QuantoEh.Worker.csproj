@@ -97,6 +97,12 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuantoEh.Dominio\QuantoEh.Dominio.csproj">
+      <Project>{D419D7E7-09F4-4F58-A428-75EA922E5AE8}</Project>
+      <Name>QuantoEh.Dominio</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

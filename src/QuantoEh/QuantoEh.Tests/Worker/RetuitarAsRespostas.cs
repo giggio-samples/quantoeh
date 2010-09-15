@@ -1,5 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
+using QuantoEh.Dominio;
+using QuantoEh.Worker;
 using StoryQ.pt_BR;
 
 namespace QuantoEh.Tests.Worker
@@ -7,6 +9,10 @@ namespace QuantoEh.Tests.Worker
     [TestFixture]
     public class RetuitarAsRespostas
     {
+        private FilaParaRetuitar _fila;
+        private string _item;
+        private WorkerRole _worker;
+        private Timeline _timeline;
         // historia e retuitar as respostas agendadas
         //para que o usuario receba o retorno do que postou
         //enquanto worker role
@@ -30,40 +36,51 @@ namespace QuantoEh.Tests.Worker
                 .EuQuero("enviar tweets de retorno")
 
                 .ComCenario("fila com um item")
-                .Dado(UmItemNaFilaDeRetweet)
+                .Dado(UmTimeline)
+                .E(UmWorkerComUmaFilaComUmItemParaRetuitar)
                 .Quando(AFilaÉProcessada)
                 .Entao(VaiParaATimelineDoQuantoEh)
 
                 .ComCenario("fila com nenhum item")
-                .Dado(UmaFilaVazia)
+                .Dado(UmTimeline)
+                .E(UmWorkerComUmaFilaVazia)
                 .Quando(AFilaÉProcessada)
                 .Entao(ATimelineNaoMuda)
                 .Execute();
         }
 
-        private void UmItemNaFilaDeRetweet()
+        private void UmTimeline()
         {
-            throw new NotImplementedException();
+            _timeline = new Timeline();
+        }
+
+        private void UmWorkerComUmaFilaComUmItemParaRetuitar()
+        {
+            _worker = new WorkerRole(_timeline);
+            _fila = _worker.Fila;
+            _item = "Resultado:3 RT @giovannibassi: @QuantoEh 2+1";
+            _fila.Adicionar(_item);
         }
 
         private void AFilaÉProcessada()
         {
-            throw new NotImplementedException();
+            _worker.ProcessarFilaDeRespostas();
         }
 
         private void VaiParaATimelineDoQuantoEh()
         {
-            throw new NotImplementedException();
+            Assert.IsTrue(_timeline.Contem(_item));
         }
 
-        private void UmaFilaVazia()
+        private void UmWorkerComUmaFilaVazia()
         {
-            throw new NotImplementedException();
+            _worker = new WorkerRole(_timeline);
+            _fila = _worker.Fila;
         }
 
         private void ATimelineNaoMuda()
         {
-            throw new NotImplementedException();
+            Assert.AreEqual(0, _timeline.TotalDeItens);
         }
     }
 }
