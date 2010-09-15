@@ -1,0 +1,48 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+
+  <PropertyGroup>
+    <BuildDir>$(MSBuildProjectDirectory)\build\</BuildDir>
+    <TrunkDir>$(MSBuildProjectDirectory)\..\</TrunkDir>
+    <UtilDir>$(TrunkDir)util\</UtilDir>
+	<NUnitDir>$(UtilDir)NUnit\</NUnitDir>
+
+    <SourceDir>QuantoEh\</SourceDir>
+
+    <Configuration>Debug</Configuration>
+    <Platform>x86</Platform>
+    
+    <TestAssembly>$(BuildDir)\QuantoEh.Tests.dll</TestAssembly>
+  
+	<MSBuildCommunityTasksPath>.</MSBuildCommunityTasksPath>
+	<DNAMSBuildTasksPath>.</DNAMSBuildTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(UtilDir)MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+  <Import Project="$(UtilDir)DNAMSBuildTasks\DNA.MSBuild.Tasks.Targets"/>
+
+  <ItemGroup>
+    <SolutionFile Include="$(SourceDir)\QuantoEh.sln" />
+  </ItemGroup>
+  
+  <Target Name="Clean">
+    <MSBuild Projects="@(SolutionFile)" Targets="Clean" Properties="Configuration=$(Configuration);Platform=$(Platform);OutDir=$(BuildDir)"/>
+    <RemoveDir Directories="$(BuildDir)" ContinueOnError="true"/>
+  </Target>
+
+  <Target Name="Build">
+    <MSBuild Projects="@(SolutionFile)" Properties="Configuration=$(Configuration);Platform=$(Platform);OutDir=$(BuildDir)"/>
+  </Target>
+
+  <Target Name="Rebuild">
+    <CallTarget Targets="Clean; Build"></CallTarget>
+  </Target>
+	
+  <Target Name="Test" DependsOnTargets="Build">
+	<DNANUnit 
+		Assemblies="$(TestAssembly)" 
+		ToolPath="$(NUnitDir)" 
+		Platform="x86"
+		DisableShadowCopy="true"
+	/>
+  </Target>  
+</Project>
