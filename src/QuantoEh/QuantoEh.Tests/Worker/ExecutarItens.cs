@@ -27,22 +27,22 @@ namespace QuantoEh.Tests.Worker
         [Test]
         public void ExecutarItensDaFilaDeTrabalho()
         {
-            new Historia("xecutar itens da fila de trabalho")
+            new Historia("Executar itens da fila de trabalho")
                 .Para("encontrar o resultado das solicitações de trabalho")
                 .Enquanto("worker role")
                 .EuQuero("transformar a mensagem em cálculo")
 
                 .ComCenario("um item de soma simples")
-                .Dado(UmItemNaFilaDeTrabalhoCom_, "2+1")
+                .Dado(UmItemNaFilaDeTrabalhoCom_, "giovannibassi @QuantoEh 2+1")
                 .Quando(ExecutamosOItem)
                 .Entao(Obtemos_, 3)
-                .E(AgendamosORetweetCom_, "resultado_3")
+                .E(AgendamosORetweetCom_, "Resultado:3 RT @giovannibassi: @QuantoEh 2+1")
 
                 .ComCenario("um item invalido")
-                .Dado(UmItemNaFilaDeTrabalhoCom_, "abcdef")
+                .Dado(UmItemNaFilaDeTrabalhoCom_, "giovannibassi: @QuantoEh abcdef")
                 .Quando(ExecutamosOItem)
                 .Entao(ObtemosUmErro)
-                .E(AgendamosORetweetCom_, "resultado_invalido")
+                .E(AgendamosORetweetCom_, "Cálculo inválido RT @giovannibassi: @QuantoEh abcdef")
                 .Execute();
         }
 
