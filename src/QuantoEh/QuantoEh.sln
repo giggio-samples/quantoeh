@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Tests", "QuantoEh.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Worker", "QuantoEh.Worker\QuantoEh.Worker.csproj", "{348F6451-6844-4ACC-876F-34159EB3E3CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Dominio", "QuantoEh.Dominio\QuantoEh.Dominio.csproj", "{D419D7E7-09F4-4F58-A428-75EA922E5AE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,12 @@ Global
 		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Release|x86.ActiveCfg = Release|x86
 		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Release|x86.Build.0 = Release|x86
+		{D419D7E7-09F4-4F58-A428-75EA922E5AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D419D7E7-09F4-4F58-A428-75EA922E5AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D419D7E7-09F4-4F58-A428-75EA922E5AE8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D419D7E7-09F4-4F58-A428-75EA922E5AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D419D7E7-09F4-4F58-A428-75EA922E5AE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D419D7E7-09F4-4F58-A428-75EA922E5AE8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

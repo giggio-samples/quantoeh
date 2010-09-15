@@ -1,6 +1,8 @@
 ﻿using System;
+using QuantoEh.Dominio;
 using StoryQ.pt_BR;
 using NUnit.Framework;
+using System.Linq;
 
 namespace QuantoEh.Tests.Worker
 {
@@ -47,7 +49,8 @@ namespace QuantoEh.Tests.Worker
 
         private void UmTweetMencionandoQuantoEh()
         {
-            throw new NotImplementedException();
+            IQueryable mencoes = Menções.UltimasMençõesAPartirDe(Menções.UltimoTweet);
+            Assert.IsNotNull(mencoes);
         }
 
         private void PuxoEssaMensagemDoTwitter()
