@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
@@ -13,6 +14,7 @@ namespace QuantoEh.Tests.Worker
         private CalculadorDeExpressoes _calculador;
         private string _expressao;
         private double _resultado;
+        private ErroDeCalculoException _excecao;
 
         [Test]
         public void CalcularTweetTestes()
@@ -28,18 +30,55 @@ namespace QuantoEh.Tests.Worker
                .Quando(SolicitoUmResultado)
                .Entao(ReceboOResultado_, 5d)
 
+               .ComCenario("divisao simples")
+               .Dado(UmExpressao_, "12 / 3")
+               .E(UmCalculadorDeExpressoes)
+               .Quando(SolicitoUmResultado)
+               .Entao(ReceboOResultado_, 4d)
+               
+               .ComCenario("elevacao simples")
+               .Dado(UmExpressao_, "2 ** 5")
+               .E(UmCalculadorDeExpressoes)
+               .Quando(SolicitoUmResultado)
+               .Entao(ReceboOResultado_, 32d)
+                
+               .ComCenario("decimal simples")
+               .Dado(UmExpressao_, "2.5 / 1.2")
+               .E(UmCalculadorDeExpressoes)
+               .Quando(SolicitoUmResultado)
+               .Entao(ReceboOResultado_, 2.0833333333333335)
+                
+               .ComCenario("divisao por zero")
+               .Dado(UmExpressao_, "12 / 0")
+               .E(UmCalculadorDeExpressoes)
+               .Quando(SolicitoUmResultado)
+               .Entao(ReceboUmErro)
+
                .Execute();
 
         }
 
+        private void ReceboUmErro()
+        {
+            Assert.IsNotNull(_excecao);
+            Assert.AreEqual("Internal compiler error: Attempted to divide by zero..", _excecao.Message);
+        }
+
         private void ReceboOResultado_(double resultadoExperado)
         {
-            Assert.AreEqual(5, resultadoExperado);
+            Assert.AreEqual(resultadoExperado, _resultado);
         }
 
         private void SolicitoUmResultado()
         {
-            _resultado = _calculador.Calcular(_expressao);
+            try
+            {
+                _resultado = _calculador.Calcular(_expressao);
+            }
+            catch (ErroDeCalculoException ex)
+            {
+                _excecao = ex;
+            }
         }
 
         private void UmExpressao_(string expressao)

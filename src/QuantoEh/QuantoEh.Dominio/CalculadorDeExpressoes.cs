@@ -9,6 +9,10 @@ namespace QuantoEh.Dominio
         {
             var interpreter = new InteractiveInterpreter2 {RememberLastValue = true};
             var context = interpreter.Eval(expressao);
+            if (context.Errors.Count > 0)
+            {
+                throw new ErroDeCalculoException(context.Errors[0].Message);
+            }
             return Convert.ToDouble(interpreter.LastValue);
         }
     }
