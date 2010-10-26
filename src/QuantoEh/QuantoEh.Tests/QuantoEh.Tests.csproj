@@ -90,9 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Worker\ColocarTweets.cs" />
-    <Compile Include="Worker\ExecutarItens.cs" />
-    <Compile Include="Worker\RetuitarAsRespostas.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -110,6 +107,9 @@
       <Project>{348F6451-6844-4ACC-876F-34159EB3E3CF}</Project>
       <Name>QuantoEh.Worker</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Worker\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
