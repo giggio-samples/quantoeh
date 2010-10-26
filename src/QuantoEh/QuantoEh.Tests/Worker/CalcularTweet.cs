@@ -20,19 +20,37 @@ namespace QuantoEh.Tests.Worker
                .Enquanto("usuario do quantoeh")
                .EuQuero("que o quanto eh parseie meus tweets")
 
-               .ComCenario("tweet bem formado")
-               .Dado(UmTextoDeUmTweetBemFormado)
+               .ComCenario("tweet bem formado com expressao com espaços")
+               .Dado(UmTextoDeUmTweet_, "giovannibassi @quantoeh 2 + 3")
                .E(UmParserDeTweets)
                .Quando(ParseioOTweet)
-               .Entao(TenhoAExpressaoDaConta)
+               .Entao(TenhoAExpressaoDaContaIgualA_, "2 + 3")
+
+               .ComCenario("tweet bem formado com expressao sem espaços")
+               .Dado(UmTextoDeUmTweet_, "giovannibassi @quantoeh 2+3")
+               .E(UmParserDeTweets)
+               .Quando(ParseioOTweet)
+               .Entao(TenhoAExpressaoDaContaIgualA_, "2+3")
+                
+               .ComCenario("tweet bem formado com expressao com espaços multiplos")
+               .Dado(UmTextoDeUmTweet_, "giovannibassi @quantoeh 2  + 3")
+               .E(UmParserDeTweets)
+               .Quando(ParseioOTweet)
+               .Entao(TenhoAExpressaoDaContaIgualA_, "2 + 3")
+ 
+               .ComCenario("tweet bem formado com expressao com parenteses e multiplas operações")
+               .Dado(UmTextoDeUmTweet_, "giovannibassi @quantoeh 5 * (2 + 3)")
+               .E(UmParserDeTweets)
+               .Quando(ParseioOTweet)
+               .Entao(TenhoAExpressaoDaContaIgualA_, "5 * (2 + 3)")
 
                .Execute();
 
         }
 
-        private void UmTextoDeUmTweetBemFormado()
+        private void UmTextoDeUmTweet_(string texto)
         {
-            _textoTweet = "giovannibassi @quantoeh 2 + 3"; 
+            _textoTweet = texto;
         }
 
         private void UmParserDeTweets()
@@ -42,21 +60,13 @@ namespace QuantoEh.Tests.Worker
 
         private void ParseioOTweet()
         {
-            _expressao = _parser.CalcularExpressao();
+            _expressao = _parser.CalcularExpressao(_textoTweet);
         }
 
-        private void TenhoAExpressaoDaConta()
+        private void TenhoAExpressaoDaContaIgualA_(string expressaoEsperada)
         {
-            Assert.AreEqual("2 + 3", _expressao);
+            Assert.AreEqual(expressaoEsperada, _expressao);
 
-        }
-    }
-
-    internal class TweetParser
-    {
-        public string CalcularExpressao()
-        {
-            throw new NotImplementedException();
         }
     }
 
