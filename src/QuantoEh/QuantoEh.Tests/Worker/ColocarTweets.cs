@@ -1,5 +1,6 @@
 ﻿using System;
 using QuantoEh.Dominio;
+using QuantoEh.Worker;
 using StoryQ.pt_BR;
 using NUnit.Framework;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace QuantoEh.Tests.Worker
     [TestFixture]
     public class ColocarTweets
     {
+        private WorkerRole _worker;
+
         [Test]
         public void ColocarTweetsNaFilaDeTrabalho()
         {
@@ -35,16 +38,23 @@ namespace QuantoEh.Tests.Worker
                 .EuQuero("saber que tenho trabalho pra fazer")
 
                         .ComCenario("Um tweet mencionando")
-                            .Dado(UmTweetMencionandoQuantoEh)
+                            .Dado(UmWorkerRole)
+                                .E(UmTweetMencionandoQuantoEh)
                             .Quando(PuxoEssaMensagemDoTwitter)
                             .Entao(ColocoEleNaFilaDeTrabalho)
 
                         .ComCenario("m tweet novo, e um anterior")
-                            .Dado(UmTweetMencionandoQuantoEh)
+                            .Dado(UmWorkerRole)
+                                .E(UmTweetMencionandoQuantoEh)
                                 .E(UmTweetAnterior)
                             .Quando(PuxoEssaMensagemDoTwitterInformandoOÚltimoTweetPuxado)
                             .Entao(ColocoApenasOTweetNovoNaFilaDeTrabalho)
                 .Execute();
+        }
+
+        private void UmWorkerRole()
+        {
+            _worker = new WorkerRole();
         }
 
         private void UmTweetMencionandoQuantoEh()
