@@ -14,14 +14,6 @@ namespace QuantoEh.Worker
 {
     public class WorkerRole : RoleEntryPoint
     {
-        public WorkerRole() : this(new Timeline())
-        {
-        }
-        public WorkerRole(ITimeline timeline)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Run()
         {
             // This is a sample worker implementation. Replace with your logic.
