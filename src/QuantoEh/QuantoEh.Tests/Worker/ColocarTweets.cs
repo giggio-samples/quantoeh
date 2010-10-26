@@ -49,8 +49,8 @@ namespace QuantoEh.Tests.Worker
 
         private void UmTweetMencionandoQuantoEh()
         {
-            IQueryable mencoes = Menções.UltimasMençõesAPartirDe(Menções.UltimoTweet);
-            Assert.IsNotNull(mencoes);
+            //IQueryable mencoes = Menções.UltimasMençõesAPartirDe(Menções.UltimoTweet);
+            //Assert.IsNotNull(mencoes);
         }
 
         private void PuxoEssaMensagemDoTwitter()
