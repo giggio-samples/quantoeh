@@ -58,11 +58,5 @@ namespace QuantoEh.Worker
             }
         }
 
-        public FilaParaRetuitar Fila { get; private set; }
-
-        public void ProcessarFilaDeRespostas()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
