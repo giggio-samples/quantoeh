@@ -7,25 +7,13 @@ namespace QuantoEh.Infra
 {
     public class DAOTwitter : IMenções
     {
-        private readonly DadosParaConexao _dadosParaConexao;
-
-        public DAOTwitter()
-        {
-            
-        }
-
-        public DAOTwitter(DadosParaConexao dadosParaConexao)
-        {
-            _dadosParaConexao = dadosParaConexao;
-        }
-
         public TweetsNovos ObterNovos(ulong ultimoId)
         {
             var context = new TwitterContext();
             ultimoId = ultimoId <= 0 ? 1 : ultimoId;
             var queryResults = (from t in context.Search
                                 where t.Type == SearchType.Search &&
-                                      t.Query == "to:giovannibassi" &&
+                                      t.Query == "to:quantoeh" &&
                                       t.Page == 1 && 
                                       t.ShowUser == true &&
                                       t.PageSize == 5  &&
@@ -38,9 +26,5 @@ namespace QuantoEh.Infra
             var tweetsNovos = new TweetsNovos(resultado, novoUltimoId);
             return tweetsNovos;
         }
-    }
-
-    public class DadosParaConexao
-    {
     }
 }
