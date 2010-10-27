@@ -2,6 +2,6 @@
 {
     public interface IMenções
     {
-        TweetsNovos ObterNovos(long ultimoId);
+        TweetsNovos ObterNovos(ulong ultimoId);
     }
 }

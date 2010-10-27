@@ -6,7 +6,7 @@ namespace QuantoEh.Worker
     {
         private readonly IMenções _menções;
         private readonly IRepositorioDeTweetsParaProcessar _repositorioDeTweetsParaProcessar;
-        private long _ultimoId;
+        private ulong _ultimoId;
 
         public VerificadorDeTweets(IMenções menções, IRepositorioDeTweetsParaProcessar repositorioDeTweetsParaProcessar)
         {

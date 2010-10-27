@@ -18,5 +18,10 @@ namespace QuantoEh.Dominio
             var resultado = _calculador.Calcular(expressao);
             return resultado;
         }
+
+        public override string ToString()
+        {
+            return Texto;
+        }
     }
 }
