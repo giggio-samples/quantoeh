@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using QuantoEh.Infra;
@@ -13,6 +14,8 @@ namespace QuantoEh.Worker
     {
         private readonly VerificadorDeTweets _verificadorDeTweets;
         private bool _continuar = true;
+        private Task _encontrarTweets;
+        private Task _calcular;
 
         public WorkerRole()
         {
@@ -33,12 +36,48 @@ namespace QuantoEh.Worker
         public override void Run()
         {
             Trace.TraceInformation("QuantoEh.Worker iniciado");
+            IniciarTarefaDeEncontrarTweets();
+            IniciarTarefaDeCalculo();
+            RodarIndefinidamenteAteTarefasConcluirem();
+        }
 
-            while (_continuar)
+        private void RodarIndefinidamenteAteTarefasConcluirem()
+        {
+            try
             {
-                EncontrarTweets();
-                Thread.Sleep(10000);
+                Task.WaitAll(_encontrarTweets, _calcular);
             }
+            catch (Exception exception)
+            {
+                Trace.TraceError("Um erro ocorreu: \n" + exception.Message);
+                throw;
+            }
+        }
+
+        private void IniciarTarefaDeCalculo()
+        {
+            _calcular = new Task(() =>
+                                  {
+                                      while (_continuar)
+                                      {
+                                          Calcular();
+                                          Thread.Sleep(2000);
+                                      }
+                                  }, TaskCreationOptions.LongRunning);
+            _calcular.Start();
+        }
+
+        private void IniciarTarefaDeEncontrarTweets()
+        {
+            _encontrarTweets = new Task(() =>
+                                            {
+                                                while (_continuar)
+                                                {
+                                                    EncontrarTweets();
+                                                    Thread.Sleep(10000);
+                                                }
+                                            }, TaskCreationOptions.LongRunning);
+            _encontrarTweets.Start();
         }
 
         private void EncontrarTweets()
@@ -55,10 +94,16 @@ namespace QuantoEh.Worker
             Trace.TraceInformation("Encontrados {0} tweets.", quantidadeDeNovos);
         }
 
+        private void Calcular()
+        {
+            Trace.TraceInformation("Tweets calculados.");
+        }
+
 
         public override void OnStop()
         {
             _continuar = false;
+            Task.WaitAll(_encontrarTweets, _calcular);
         }
 
         public override bool OnStart()
