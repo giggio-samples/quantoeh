@@ -7,20 +7,14 @@ using QuantoEh.Dominio;
 
 namespace QuantoEh.Infra
 {
-    public class RepositorioDeTweetsParaProcessar : IRepositorioDeTweetsParaProcessar
+    public class RepositorioDeTweetsParaProcessar : DAOFila, IRepositorioDeTweetsParaProcessar
     {
         public void Adicionar(IEnumerable<TweetParaProcessar> tweetsParaProcessar)
         {
             var fila = ObterFila();
             foreach (var tweet in tweetsParaProcessar)
             {
-                byte[] conteudo;
-                using (var stream = new MemoryStream())
-                {
-                    var bin = new BinaryFormatter();
-                    bin.Serialize(stream, tweet);
-                    conteudo = stream.GetBuffer();
-                }
+                var conteudo = Serializar(tweet);
                 var mensagem = new CloudQueueMessage(conteudo);
                 fila.AddMessage(mensagem);
             }
@@ -28,7 +22,24 @@ namespace QuantoEh.Infra
 
         public IEnumerable<TweetParaProcessar> ObterTodos()
         {
-            throw new NotImplementedException();
+            var fila = ObterFila();
+            var tweets = new List<TweetParaProcessar>();
+            var mensagem = fila.GetMessage();
+            int i = 0;
+            while (mensagem != null)
+            {
+                using (var stream = new MemoryStream(mensagem.AsBytes))
+                {
+                    var bin = new BinaryFormatter();
+                    var tweet = (TweetParaProcessar)bin.Deserialize(stream);
+                    tweets.Add(tweet);
+                }
+                fila.DeleteMessage(mensagem);
+                if (i >= 10) break;
+                i++;
+                mensagem = fila.GetMessage();
+            }
+            return tweets;
         }
 
         private static CloudQueue ObterFila()
