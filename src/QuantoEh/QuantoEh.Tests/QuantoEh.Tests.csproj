@@ -96,7 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VerificadorDeTweet.cs" />
+    <Compile Include="VerificadorDeTweetsSpec.cs" />
     <Compile Include="Worker\CalculadorDeExpressoesMatematicas.cs" />
     <Compile Include="Worker\CalcularTweet.cs" />
     <Compile Include="Worker\ParsearTweet.cs" />

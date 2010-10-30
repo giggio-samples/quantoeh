@@ -1,4 +1,5 @@
-﻿using QuantoEh.Dominio;
+﻿using System;
+using QuantoEh.Dominio;
 
 namespace QuantoEh.Worker
 {
@@ -22,5 +23,9 @@ namespace QuantoEh.Worker
             return tweetsNovos.QuantidadeDeNovos;
         }
 
+        public int CalcularTweets()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

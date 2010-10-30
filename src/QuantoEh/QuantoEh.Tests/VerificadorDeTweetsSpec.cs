@@ -11,7 +11,7 @@ using StoryQ.pt_BR;
 namespace QuantoEh.Tests
 {
     [TestFixture]
-    public class VerificadorDeTweet
+    public class VerificadorDeTweetsSpec
     {
         private TweetParaProcessar _tweetParaProcessar;
         private Mock<IMenções> _menções;

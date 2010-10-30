@@ -96,7 +96,16 @@ namespace QuantoEh.Worker
 
         private void Calcular()
         {
-            Trace.TraceInformation("Tweets calculados.");
+            int calculados = 0;
+            try
+            {
+                calculados = _verificadorDeTweets.CalcularTweets();
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError("Erro:\n{0}", exception.ToString());
+            }
+            Trace.TraceInformation("Calculados {0} tweets.", calculados);
         }
 
 
