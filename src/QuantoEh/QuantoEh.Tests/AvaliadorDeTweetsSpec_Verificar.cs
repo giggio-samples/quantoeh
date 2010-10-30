@@ -61,7 +61,7 @@ namespace QuantoEh.Tests
 
         private void UmAvaliadorDeTweets()
         {
-            _avaliadorDeTweets = new AvaliadorDeTweets(_menções.Object, _repositorioDeTweetsParaProcessar.Object, new Mock<IRespostasParaRetuitar>().Object);
+            _avaliadorDeTweets = new AvaliadorDeTweets(_menções.Object, _repositorioDeTweetsParaProcessar.Object, new Mock<IRespostasParaRetuitar>().Object, new Mock<ITimeline>().Object);
         }
 
         private void OVerificadorVerificaOsTweets()

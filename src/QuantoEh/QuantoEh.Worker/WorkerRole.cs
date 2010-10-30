@@ -21,7 +21,8 @@ namespace QuantoEh.Worker
         {
             try
             {
-                _avaliadorDeTweets = new AvaliadorDeTweets(new DAOTwitter(), new RepositorioDeTweetsParaProcessar(), new RespostasParaRetuitar());
+                var daoTwitter = new DAOTwitter();
+                _avaliadorDeTweets = new AvaliadorDeTweets(daoTwitter, new RepositorioDeTweetsParaProcessar(), new RespostasParaRetuitar(), daoTwitter);
             }
             catch (Exception exception)
             {

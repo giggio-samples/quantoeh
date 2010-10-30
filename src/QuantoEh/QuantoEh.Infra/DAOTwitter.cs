@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LinqToTwitter;
 using QuantoEh.Dominio;
 
 namespace QuantoEh.Infra
 {
-    public class DAOTwitter : IMenções
+    public class DAOTwitter : IMenções, ITimeline
     {
         public TweetsNovos ObterNovos(ulong ultimoId)
         {
@@ -27,6 +28,11 @@ namespace QuantoEh.Infra
             var novoUltimoId = tweets.Max(t => Convert.ToUInt64(t.ID.Split(new []{':'},StringSplitOptions.RemoveEmptyEntries)[2]));
             var tweetsNovos = new TweetsNovos(resultado, novoUltimoId);
             return tweetsNovos;
+        }
+
+        public void Postar(IEnumerable<string> respostas)
+        {
+            throw new NotImplementedException();
         }
     }
 }

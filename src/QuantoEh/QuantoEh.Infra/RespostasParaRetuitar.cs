@@ -1,4 +1,6 @@
-﻿using Microsoft.WindowsAzure.StorageClient;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.WindowsAzure.StorageClient;
 using QuantoEh.Dominio;
 
 namespace QuantoEh.Infra
@@ -10,6 +12,12 @@ namespace QuantoEh.Infra
             var fila = ObterFila();
             fila.AddMessage(new CloudQueueMessage(textoRetuite));
         }
+
+        public IEnumerable<string> ObterTodas()
+        {
+            throw new NotImplementedException();
+        }
+
         private static CloudQueue ObterFila()
         {
             var fila = ConfiguracaoArmazenamentoAzure.ObterFila("retweets");

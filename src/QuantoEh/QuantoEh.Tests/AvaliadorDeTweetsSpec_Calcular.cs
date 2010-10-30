@@ -52,7 +52,7 @@ namespace QuantoEh.Tests
 
         private void UmAvaliadordorDeTweets()
         {
-            _avaliadorDeTweets = new AvaliadorDeTweets(new Mock<IMenções>().Object, _repositorioDeTweetsParaProcessar.Object, _respostasParaRetuitar.Object);
+            _avaliadorDeTweets = new AvaliadorDeTweets(new Mock<IMenções>().Object, _repositorioDeTweetsParaProcessar.Object, _respostasParaRetuitar.Object, new Mock<ITimeline>().Object);
         }
 
         private void UmaListaDeRespostas()
