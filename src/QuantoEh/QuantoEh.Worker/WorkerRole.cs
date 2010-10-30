@@ -1,24 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
-using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using Microsoft.WindowsAzure.StorageClient;
+using QuantoEh.Infra;
 
 namespace QuantoEh.Worker
 {
     public class WorkerRole : RoleEntryPoint
     {
         private readonly VerificadorDeTweets _verificadorDeTweets;
-        private bool _continuar;
+        private bool _continuar = true;
 
         public WorkerRole()
         {
-            
+            try
+            {
+                _verificadorDeTweets = new VerificadorDeTweets(new DAOTwitter(), new RepositorioDeTweetsParaProcessar());
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError("Erro ao criar o verificador de tweets.\n", exception.ToString());
+            }
         }
         public WorkerRole(VerificadorDeTweets verificadorDeTweets)
         {
@@ -27,18 +32,30 @@ namespace QuantoEh.Worker
 
         public override void Run()
         {
-            // This is a sample worker implementation. Replace with your logic.
-            Trace.WriteLine("QuantoEh.Worker entry point called", "Information");
+            Trace.TraceInformation("QuantoEh.Worker iniciado");
 
             while (_continuar)
             {
+                EncontrarTweets();
                 Thread.Sleep(10000);
-                _verificadorDeTweets.VerificarTweetsNovos();
-                Trace.WriteLine("Working", "Information");
             }
         }
 
-        
+        private void EncontrarTweets()
+        {
+            int quantidadeDeNovos = 0;
+            try
+            {
+                quantidadeDeNovos = _verificadorDeTweets.VerificarTweetsNovos();
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError("Erro:\n{0}", exception.ToString());   
+            }
+            Trace.TraceInformation("Encontrados {0} tweets.", quantidadeDeNovos);
+        }
+
+
         public override void OnStop()
         {
             _continuar = false;
@@ -48,7 +65,7 @@ namespace QuantoEh.Worker
         {
             // Set the maximum number of concurrent connections 
             ServicePointManager.DefaultConnectionLimit = 12;
-
+            //DiagnosticMonitor.Start(ConfiguracaoArmazenamentoAzure.ObterContaDeArmazenamento(), DiagnosticMonitor.GetDefaultInitialConfiguration());
             DiagnosticMonitor.Start("DiagnosticsConnectionString");
 
             // For information on handling configuration changes

@@ -34,7 +34,10 @@
     <Reference Include="LinqToTwitter">
       <HintPath>..\..\..\libs\LinqToTwitter\LinqToTwitter\bin\Debug\LinqToTwitter.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfiguracaoArmazenamentoAzure.cs" />
     <Compile Include="DAOTwitter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositorioDeTweetsParaProcessar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuantoEh.Dominio\QuantoEh.Dominio.csproj">

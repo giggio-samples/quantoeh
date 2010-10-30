@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace QuantoEh.Dominio
 {
@@ -19,5 +20,12 @@ namespace QuantoEh.Dominio
         public ulong IdMaisAlto { get; private set; }
 
         public virtual IEnumerable<TweetParaProcessar> Novos { get { return _novos; } }
+
+        public int QuantidadeDeNovos { get { return _novos.Count; } }
+
+        public static TweetsNovos Vazio(ulong ultimoId)
+        {
+            return new TweetsNovos(new List<string>(), ultimoId);
+        }
     }
 }

@@ -90,7 +90,6 @@
     <Compile Include="IMenções.cs" />
     <Compile Include="IRepositorioDeTweetsParaProcessar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositorioDeTweetsParaProcessar.cs" />
     <Compile Include="TweetParaProcessar.cs" />
     <Compile Include="TweetParser.cs" />
     <Compile Include="TweetsNovos.cs" />

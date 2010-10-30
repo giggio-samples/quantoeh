@@ -16,12 +16,14 @@ namespace QuantoEh.Infra
                                       t.Query == "to:quantoeh" &&
                                       t.Page == 1 && 
                                       t.ShowUser == true &&
-                                      t.PageSize == 5  &&
+                                      t.PageSize == 2  &&
                                       t.SinceID == ultimoId
                                 select t).Single();
             var tweets = queryResults.Entries;
             var resultado = (from r in tweets
                             select r.Title).ToList();
+            if (resultado.Count == 0)
+                return TweetsNovos.Vazio(ultimoId);
             var novoUltimoId = tweets.Max(t => Convert.ToUInt64(t.ID.Split(new []{':'},StringSplitOptions.RemoveEmptyEntries)[2]));
             var tweetsNovos = new TweetsNovos(resultado, novoUltimoId);
             return tweetsNovos;

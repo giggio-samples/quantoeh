@@ -14,11 +14,12 @@ namespace QuantoEh.Worker
             _repositorioDeTweetsParaProcessar = repositorioDeTweetsParaProcessar;
         }
 
-        public void VerificarTweetsNovos()
+        public int VerificarTweetsNovos()
         {
             var tweetsNovos = _menções.ObterNovos(_ultimoId);
             _ultimoId = tweetsNovos.IdMaisAlto;
             _repositorioDeTweetsParaProcessar.Adicionar(tweetsNovos.Novos);
+            return tweetsNovos.QuantidadeDeNovos;
         }
 
     }
