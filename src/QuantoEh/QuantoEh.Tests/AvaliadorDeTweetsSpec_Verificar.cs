@@ -11,7 +11,7 @@ using StoryQ.pt_BR;
 namespace QuantoEh.Tests
 {
     [TestFixture]
-    public class AvaliadorDeTweetsSpec
+    public class AvaliadorDeTweetsSpec_Verificar
     {
         private TweetParaProcessar _tweetParaProcessar;
         private Mock<IMenções> _menções;
@@ -32,7 +32,7 @@ namespace QuantoEh.Tests
                .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 2 + 3")
                .E(UmConjuntoDeMenções)
                .E(UmRepositorioDeTweetsParaProcessar)
-               .E(UmVerificadorDeTweets)
+               .E(UmAvaliadorDeTweets)
                .Quando(OVerificadorVerificaOsTweets)
                .Entao(AFileDeProcessamentoTemUmTweetParProcessar)
                
@@ -59,9 +59,9 @@ namespace QuantoEh.Tests
             _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>();
         }
 
-        private void UmVerificadorDeTweets()
+        private void UmAvaliadorDeTweets()
         {
-            _avaliadorDeTweets = new AvaliadorDeTweets(_menções.Object, _repositorioDeTweetsParaProcessar.Object);
+            _avaliadorDeTweets = new AvaliadorDeTweets(_menções.Object, _repositorioDeTweetsParaProcessar.Object, new Mock<IRespostasParaRetuitar>().Object);
         }
 
         private void OVerificadorVerificaOsTweets()

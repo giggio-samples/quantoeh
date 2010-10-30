@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRespostasParaRetuitar.cs" />
     <Compile Include="CalculadorDeExpressoes.cs" />
     <Compile Include="ErroDeCalculoException.cs" />
     <Compile Include="FilaParaProcessamentoDeTweets.cs" />

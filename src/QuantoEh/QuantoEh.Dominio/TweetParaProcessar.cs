@@ -16,11 +16,17 @@ namespace QuantoEh.Dominio
 
         private readonly TweetParser _tweetParser = new TweetParser();
         private readonly CalculadorDeExpressoes _calculador = new CalculadorDeExpressoes();
-        public double Processar()
+        public string Processar()
         {
             var expressao = _tweetParser.CalcularExpressao(Texto);
             var resultado = _calculador.Calcular(expressao);
-            return resultado;
+            var retuite = MontarRetuite(resultado);
+            return retuite;
+        }
+
+        private string MontarRetuite(double resultado)
+        {
+            return string.Format("{0} RT {1}", resultado, Texto);
         }
 
         public override string ToString()

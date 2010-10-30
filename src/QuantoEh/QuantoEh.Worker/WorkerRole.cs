@@ -21,16 +21,12 @@ namespace QuantoEh.Worker
         {
             try
             {
-                _avaliadorDeTweets = new AvaliadorDeTweets(new DAOTwitter(), new RepositorioDeTweetsParaProcessar());
+                _avaliadorDeTweets = new AvaliadorDeTweets(new DAOTwitter(), new RepositorioDeTweetsParaProcessar(), new RespostasParaRetuitar());
             }
             catch (Exception exception)
             {
                 Trace.TraceError("Erro ao criar o verificador de tweets.\n", exception.ToString());
             }
-        }
-        public WorkerRole(AvaliadorDeTweets avaliadorDeTweets)
-        {
-            _avaliadorDeTweets = avaliadorDeTweets;
         }
 
         public override void Run()

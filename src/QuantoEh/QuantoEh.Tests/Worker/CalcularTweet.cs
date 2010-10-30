@@ -9,7 +9,7 @@ namespace QuantoEh.Tests.Worker
     public class CalcularTweet
     {
         private TweetParaProcessar _tweetParaProcessar;
-        private double _resultado;
+        private string _resultado;
 
         [Test]
         public void CalcularTweetTestes()
@@ -22,17 +22,17 @@ namespace QuantoEh.Tests.Worker
                .ComCenario("tweet bem formado com soma simples")
                .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 2 + 3")
                .Quando(SolicitoUmResultadoAEsteTweet)
-               .Entao(TenhoOResultaoEsperado_, 5d)
+               .Entao(TenhoOResultaoEsperado_, "5 RT giovannibassi @quantoeh 2 + 3")
 
                .ComCenario("tweet bem formado com soma simples")
                .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 2 + 4")
                .Quando(SolicitoUmResultadoAEsteTweet)
-               .Entao(TenhoOResultaoEsperado_, 6d)
+               .Entao(TenhoOResultaoEsperado_, "6 RT giovannibassi @quantoeh 2 + 4")
 
                .ComCenario("tweet bem formado com uma expressao complexa")
                .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 3 * (2 ** 5) - 5")
                .Quando(SolicitoUmResultadoAEsteTweet)
-               .Entao(TenhoOResultaoEsperado_, 91d)
+               .Entao(TenhoOResultaoEsperado_, "91 RT giovannibassi @quantoeh 3 * (2 ** 5) - 5")
 
                .Execute();
 
@@ -48,7 +48,7 @@ namespace QuantoEh.Tests.Worker
             _resultado = _tweetParaProcessar.Processar();
         }
 
-        private void TenhoOResultaoEsperado_(double esperado)
+        private void TenhoOResultaoEsperado_(string esperado)
         {
             Assert.AreEqual(esperado, _resultado);
         }

@@ -21,7 +21,7 @@ namespace QuantoEh.Dominio
 
         public virtual IEnumerable<TweetParaProcessar> Novos { get { return _novos; } }
 
-        public int QuantidadeDeNovos { get { return _novos.Count; } }
+        public int QuantidadeDeNovos { get { return _novos == null? 0: _novos.Count; } }
 
         public static TweetsNovos Vazio(ulong ultimoId)
         {

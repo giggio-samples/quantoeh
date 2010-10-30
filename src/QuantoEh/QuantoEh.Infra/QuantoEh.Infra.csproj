@@ -50,6 +50,7 @@
     <Compile Include="DAOTwitter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositorioDeTweetsParaProcessar.cs" />
+    <Compile Include="RespostasParaRetuitar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuantoEh.Dominio\QuantoEh.Dominio.csproj">

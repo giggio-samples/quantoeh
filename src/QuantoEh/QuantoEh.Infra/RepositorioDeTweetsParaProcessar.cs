@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.WindowsAzure.StorageClient;
@@ -23,6 +24,11 @@ namespace QuantoEh.Infra
                 var mensagem = new CloudQueueMessage(conteudo);
                 fila.AddMessage(mensagem);
             }
+        }
+
+        public IEnumerable<TweetParaProcessar> ObterTodos()
+        {
+            throw new NotImplementedException();
         }
 
         private static CloudQueue ObterFila()
