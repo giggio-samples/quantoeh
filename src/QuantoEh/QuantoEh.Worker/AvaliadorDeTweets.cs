@@ -3,13 +3,13 @@ using QuantoEh.Dominio;
 
 namespace QuantoEh.Worker
 {
-    public class VerificadorDeTweets
+    public class AvaliadorDeTweets
     {
         private readonly IMenções _menções;
         private readonly IRepositorioDeTweetsParaProcessar _repositorioDeTweetsParaProcessar;
         private ulong _ultimoId;
 
-        public VerificadorDeTweets(IMenções menções, IRepositorioDeTweetsParaProcessar repositorioDeTweetsParaProcessar)
+        public AvaliadorDeTweets(IMenções menções, IRepositorioDeTweetsParaProcessar repositorioDeTweetsParaProcessar)
         {
             _menções = menções;
             _repositorioDeTweetsParaProcessar = repositorioDeTweetsParaProcessar;

@@ -12,7 +12,7 @@ namespace QuantoEh.Worker
 {
     public class WorkerRole : RoleEntryPoint
     {
-        private readonly VerificadorDeTweets _verificadorDeTweets;
+        private readonly AvaliadorDeTweets _avaliadorDeTweets;
         private bool _continuar = true;
         private Task _encontrarTweets;
         private Task _calcular;
@@ -21,16 +21,16 @@ namespace QuantoEh.Worker
         {
             try
             {
-                _verificadorDeTweets = new VerificadorDeTweets(new DAOTwitter(), new RepositorioDeTweetsParaProcessar());
+                _avaliadorDeTweets = new AvaliadorDeTweets(new DAOTwitter(), new RepositorioDeTweetsParaProcessar());
             }
             catch (Exception exception)
             {
                 Trace.TraceError("Erro ao criar o verificador de tweets.\n", exception.ToString());
             }
         }
-        public WorkerRole(VerificadorDeTweets verificadorDeTweets)
+        public WorkerRole(AvaliadorDeTweets avaliadorDeTweets)
         {
-            _verificadorDeTweets = verificadorDeTweets;
+            _avaliadorDeTweets = avaliadorDeTweets;
         }
 
         public override void Run()
@@ -85,7 +85,7 @@ namespace QuantoEh.Worker
             int quantidadeDeNovos = 0;
             try
             {
-                quantidadeDeNovos = _verificadorDeTweets.VerificarTweetsNovos();
+                quantidadeDeNovos = _avaliadorDeTweets.VerificarTweetsNovos();
             }
             catch (Exception exception)
             {
@@ -99,7 +99,7 @@ namespace QuantoEh.Worker
             int calculados = 0;
             try
             {
-                calculados = _verificadorDeTweets.CalcularTweets();
+                calculados = _avaliadorDeTweets.CalcularTweets();
             }
             catch (Exception exception)
             {

@@ -11,11 +11,11 @@ using StoryQ.pt_BR;
 namespace QuantoEh.Tests
 {
     [TestFixture]
-    public class VerificadorDeTweetsSpec
+    public class AvaliadorDeTweetsSpec
     {
         private TweetParaProcessar _tweetParaProcessar;
         private Mock<IMenções> _menções;
-        private VerificadorDeTweets _verificadorDeTweets;
+        private AvaliadorDeTweets _avaliadorDeTweets;
         private Mock<IRepositorioDeTweetsParaProcessar> _repositorioDeTweetsParaProcessar;
         private List<TweetParaProcessar> _listaDeTweetsNovos;
         private const long IdQuandoNaoHaUmaAnterior = 0;
@@ -61,12 +61,12 @@ namespace QuantoEh.Tests
 
         private void UmVerificadorDeTweets()
         {
-            _verificadorDeTweets = new VerificadorDeTweets(_menções.Object, _repositorioDeTweetsParaProcessar.Object);
+            _avaliadorDeTweets = new AvaliadorDeTweets(_menções.Object, _repositorioDeTweetsParaProcessar.Object);
         }
 
         private void OVerificadorVerificaOsTweets()
         {
-            _verificadorDeTweets.VerificarTweetsNovos();
+            _avaliadorDeTweets.VerificarTweetsNovos();
         }
 
         private void AFileDeProcessamentoTemUmTweetParProcessar()
