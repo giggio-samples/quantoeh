@@ -7,13 +7,11 @@ namespace QuantoEh.Dominio
     {
         protected TweetsNovos() {}
 
-        private List<TweetParaProcessar> _novos;
+        private List<TweetParaProcessar> _novos = new List<TweetParaProcessar>();
 
-        public TweetsNovos(IEnumerable<string> textosTweets, ulong ultimoId)
+        public TweetsNovos(IEnumerable<TweetParaProcessar> novos, ulong ultimoId)
         {
-            _novos = new List<TweetParaProcessar>();
-            foreach (var textoTweet in textosTweets)
-                _novos.Add(new TweetParaProcessar(textoTweet));
+            _novos.AddRange(novos);
             IdMaisAlto = ultimoId;
         }
 
@@ -25,7 +23,7 @@ namespace QuantoEh.Dominio
 
         public static TweetsNovos Vazio(ulong ultimoId)
         {
-            return new TweetsNovos(new List<string>(), ultimoId);
+            return new TweetsNovos(new List<TweetParaProcessar>(), ultimoId);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace QuantoEh.Dominio
 {
     public interface IRespostasParaRetuitar
     {
-        void Adicionar(string textoRetuite);
-        IEnumerable<string> ObterTodas();
+        void Adicionar(Resposta resposta);
+        IEnumerable<Resposta> ObterTodas();
     }
 }

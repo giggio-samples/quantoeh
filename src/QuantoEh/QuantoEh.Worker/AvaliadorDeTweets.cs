@@ -33,7 +33,7 @@ namespace QuantoEh.Worker
             int quantidade = 0;
             foreach (var tweetParaProcessar in tweetsParaProcessar)
             {
-                var resultado = tweetParaProcessar.Processar();
+                var resultado = tweetParaProcessar.ProcessarResposta();
                 _respostasParaRetuitar.Adicionar(resultado);
                 quantidade++;
             }

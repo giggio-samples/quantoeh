@@ -38,7 +38,11 @@ namespace QuantoEh.Tests
 
         private void UmaListaDeRespostasCom2Respostas()
         {
-            var respostas = new List<string> { "5 RT testequantoeh: @quantoeh 2 + 3", "6 RT testequantoeh: @quantoeh 2 * 3" };
+            var respostas = new List<Resposta>
+                                {
+                                    new Resposta{Texto = "5 RT testequantoeh: @quantoeh 2 + 3",IdTweetOriginal = 1}, 
+                                    new Resposta{Texto = "6 RT testequantoeh: @quantoeh 2 * 3",IdTweetOriginal = 2}
+                                };
             _respostasParaRetuitar = new Mock<IRespostasParaRetuitar>();
             _respostasParaRetuitar.Setup(r => r.ObterTodas()).Returns(respostas).Verifiable();
         }

@@ -4,6 +4,6 @@ namespace QuantoEh.Dominio
 {
     public interface ITimeline
     {
-        void Postar(IEnumerable<string> respostas);
+        void Postar(IEnumerable<Resposta> respostas);
     }
 }

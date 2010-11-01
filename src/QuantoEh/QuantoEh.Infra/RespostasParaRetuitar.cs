@@ -7,13 +7,14 @@ namespace QuantoEh.Infra
 {
     public class RespostasParaRetuitar :DAOFila, IRespostasParaRetuitar
     {
-        public void Adicionar(string textoRetuite)
+        public void Adicionar(Resposta resposta)
         {
             var fila = ObterFila();
-            fila.AddMessage(new CloudQueueMessage(textoRetuite));
+            var conteudo = Serializar(resposta);
+            fila.AddMessage(new CloudQueueMessage(conteudo));
         }
 
-        public IEnumerable<string> ObterTodas()
+        public IEnumerable<Resposta> ObterTodas()
         {
             throw new NotImplementedException();
         }

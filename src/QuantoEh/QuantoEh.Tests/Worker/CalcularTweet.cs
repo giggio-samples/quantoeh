@@ -9,7 +9,7 @@ namespace QuantoEh.Tests.Worker
     public class CalcularTweet
     {
         private TweetParaProcessar _tweetParaProcessar;
-        private string _resultado;
+        private Resposta _resposta;
 
         [Test]
         public void CalcularTweetTestes()
@@ -40,17 +40,17 @@ namespace QuantoEh.Tests.Worker
 
         private void UmTweetBemFormadoComTexto_(string texto)
         {
-            _tweetParaProcessar = new TweetParaProcessar(texto);
+            _tweetParaProcessar = new TweetParaProcessar(texto, 1);
         }
 
         private void SolicitoUmResultadoAEsteTweet()
         {
-            _resultado = _tweetParaProcessar.Processar();
+            _resposta = _tweetParaProcessar.ProcessarResposta();
         }
 
         private void TenhoOResultaoEsperado_(string esperado)
         {
-            Assert.AreEqual(esperado, _resultado);
+            Assert.AreEqual(esperado, _resposta.Texto);
         }
     }
 }

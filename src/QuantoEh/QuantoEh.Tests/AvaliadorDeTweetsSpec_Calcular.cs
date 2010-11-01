@@ -44,8 +44,8 @@ namespace QuantoEh.Tests
             _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>();
             var listaDeTweetsNovos = new List<TweetParaProcessar>
                                                           {
-                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 + 3"),
-                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 * 3")
+                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 + 3", 2),
+                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 * 3", 3)
                                                           };
             _repositorioDeTweetsParaProcessar.Setup(r => r.ObterTodos()).Returns(listaDeTweetsNovos);
         }
@@ -72,8 +72,8 @@ namespace QuantoEh.Tests
 
         private void AFilaDeRetweetTem2TweetsParaRetuitar()
         {
-            _respostasParaRetuitar.Verify(r => r.Adicionar("5 RT testequantoeh: @quantoeh 2 + 3"));
-            _respostasParaRetuitar.Verify(r => r.Adicionar("6 RT testequantoeh: @quantoeh 2 * 3"));
+            _respostasParaRetuitar.Verify(r => r.Adicionar(It.Is<Resposta>(res => res.Texto == "5 RT testequantoeh: @quantoeh 2 + 3")));
+            _respostasParaRetuitar.Verify(r => r.Adicionar(It.Is<Resposta>(res => res.Texto == "6 RT testequantoeh: @quantoeh 2 * 3")));
         }
 
         private void OAvaliadorConfirmouQue2TuitesForamProcessados()

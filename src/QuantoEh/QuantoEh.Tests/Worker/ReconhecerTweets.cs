@@ -59,7 +59,7 @@ namespace QuantoEh.Tests.Worker
 
         private void CrioUmTweetParaProcessar()
         {
-            _tweetParaProcessar = new TweetParaProcessar(_textoTweet);
+            _tweetParaProcessar = new TweetParaProcessar(_textoTweet, 1);
         }
 
         private void TenhoUmTweetParaProcessar()

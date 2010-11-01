@@ -21,18 +21,18 @@ namespace QuantoEh.Infra
             if (statuses.Count == 0)
                 return TweetsNovos.Vazio(ultimoId);
             var tweets = (from r in statuses
-                          select r.User.Identifier.ScreenName + ": " + r.Text).ToList();
+                          select new TweetParaProcessar(r.User.Identifier.ScreenName + ": " + r.Text, Convert.ToUInt64(r.StatusID))).ToList();
             var novoUltimoId = statuses.Max(t => Convert.ToUInt64(t.StatusID));
             var tweetsNovos = new TweetsNovos(tweets, novoUltimoId);
             return tweetsNovos;
         }
 
-        public void Postar(IEnumerable<string> respostas)
+        public void Postar(IEnumerable<Resposta> respostas)
         {
             var contextoTwitter = ObterContextoTwitter();
             foreach (var resposta in respostas)
             {
-                contextoTwitter.UpdateStatus(resposta);
+                contextoTwitter.UpdateStatus(resposta.Texto, resposta.IdTweetOriginal.ToString());
             }
         }
 
