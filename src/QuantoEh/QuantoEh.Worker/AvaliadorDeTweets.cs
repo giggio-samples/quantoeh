@@ -9,7 +9,6 @@ namespace QuantoEh.Worker
         private readonly IMenções _menções;
         private readonly IRepositorioDeTweetsParaProcessar _repositorioDeTweetsParaProcessar;
         private readonly IRespostasParaRetuitar _respostasParaRetuitar;
-        private ulong _ultimoId;
         private ITimeline _timeline;
 
         public AvaliadorDeTweets(IMenções menções, IRepositorioDeTweetsParaProcessar repositorioDeTweetsParaProcessar, IRespostasParaRetuitar respostasParaRetuitar, ITimeline timeline)
@@ -22,9 +21,9 @@ namespace QuantoEh.Worker
 
         public int VerificarTweetsNovos()
         {
-            var tweetsNovos = _menções.ObterNovos(_ultimoId);
-            _ultimoId = tweetsNovos.IdMaisAlto;
-            _repositorioDeTweetsParaProcessar.Adicionar(tweetsNovos.Novos);
+            var ultimoId = _repositorioDeTweetsParaProcessar.ObterUltimoId();
+            var tweetsNovos = _menções.ObterNovos(ultimoId);
+            _repositorioDeTweetsParaProcessar.Adicionar(tweetsNovos);
             return tweetsNovos.QuantidadeDeNovos;
         }
 

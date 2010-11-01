@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data.Services.Client;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.StorageClient;
@@ -41,6 +42,18 @@ namespace QuantoEh.Infra
             CloudStorageAccount
                 .SetConfigurationSettingPublisher((configName, configSetter) => 
                     configSetter(RoleEnvironment.GetConfigurationSettingValue(configName)));
+        }
+
+        public static DataServiceContext ObterTabela(string nomeTabela)
+        {
+            return ObterTabela(ObterContaDeArmazenamento(), nomeTabela);
+        }
+        private static DataServiceContext ObterTabela(CloudStorageAccount cloudStorageAccount, string nomeTabela)
+        {
+            var cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
+            cloudTableClient.CreateTableIfNotExist(nomeTabela);
+            var ctx = new DataServiceContext(cloudTableClient.BaseUri);
+            return ctx;
         }
     }
 }

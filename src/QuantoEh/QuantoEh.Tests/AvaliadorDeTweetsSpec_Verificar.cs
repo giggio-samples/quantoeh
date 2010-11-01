@@ -13,12 +13,13 @@ namespace QuantoEh.Tests
     [TestFixture]
     public class AvaliadorDeTweetsSpec_Verificar
     {
-        private TweetParaProcessar _tweetParaProcessar;
         private Mock<IMenções> _menções;
         private AvaliadorDeTweets _avaliadorDeTweets;
         private Mock<IRepositorioDeTweetsParaProcessar> _repositorioDeTweetsParaProcessar;
-        private List<TweetParaProcessar> _listaDeTweetsNovos;
-        private const long IdQuandoNaoHaUmaAnterior = 0;
+        private AvaliadorDeTweets _outroAvaliadorDeTweets;
+        private Mock<TweetsNovos> _tweetsNovos;
+        private const ulong UltimoId = 15;
+        private const ulong IdQuandoNaoHaUmaAnterior = 0;
 
         [Test]
         public void RodarVerificadorDeTweet()
@@ -29,34 +30,40 @@ namespace QuantoEh.Tests
                .EuQuero("que o worker role verifique meus tweets")
 
                .ComCenario("tweet bem formado com soma simples")
-               .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 2 + 3")
-               .E(UmConjuntoDeMenções)
+               .Dado(UmConjuntoDeMenções)
                .E(UmRepositorioDeTweetsParaProcessar)
                .E(UmAvaliadorDeTweets)
-               .Quando(OVerificadorVerificaOsTweets)
-               .Entao(AFileDeProcessamentoTemUmTweetParProcessar)
+               .Quando(OAvaliadorVerificaOsTweets)
+               .Entao(AFilaDeProcessamentoTemUmTweetParaProcessar)
+               
+               .ComCenario("reiniciando a verificação")
+               .Dado(UmConjuntoDeMenções)
+               .E(UmRepositorioDeTweetsParaProcessar)
+               .E(UmAvaliadorDeTweets)
+               .E(OutroAvaliadorDeTweets)
+               .Quando(OAvaliadorVerificaOsTweets)
+               .E(OAvaliadorVerificaNovamenteOsTweets)
+               .Entao(FoiPassadoZeroComoUltimoTweetNaPrimeiraChamada)
+               .E(OIdDoUltimoTweetFoiPassadoNaSegundaChamada)
                
                .Execute();
 
         }
-
-        private void UmTweetBemFormadoComTexto_(string texto)
-        {
-            _tweetParaProcessar = new TweetParaProcessar(texto);
-        }
-
+        
         private void UmConjuntoDeMenções()
         {
-            _listaDeTweetsNovos = new List<TweetParaProcessar> {_tweetParaProcessar};
-            var tweetsNovos = new Mock<TweetsNovos>();
-            tweetsNovos.Setup(t => t.Novos).Returns(_listaDeTweetsNovos);
+            _tweetsNovos = new Mock<TweetsNovos>();
             _menções = new Mock<IMenções>();
-            _menções.Setup(m => m.ObterNovos(IdQuandoNaoHaUmaAnterior)).Returns(tweetsNovos.Object);
+            _menções.Setup(m => m.ObterNovos(IdQuandoNaoHaUmaAnterior)).Returns(_tweetsNovos.Object);
+            _menções.Setup(m => m.ObterNovos(UltimoId)).Returns(_tweetsNovos.Object);
         }
 
         private void UmRepositorioDeTweetsParaProcessar()
         {
-            _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>();
+            _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>(MockBehavior.Strict);
+            _repositorioDeTweetsParaProcessar.Setup(r => r.Adicionar(_tweetsNovos.Object));
+            var id = IdQuandoNaoHaUmaAnterior;
+            _repositorioDeTweetsParaProcessar.Setup(r => r.ObterUltimoId()).Returns(() => id).Callback(() => id = UltimoId);
         }
 
         private void UmAvaliadorDeTweets()
@@ -64,14 +71,36 @@ namespace QuantoEh.Tests
             _avaliadorDeTweets = new AvaliadorDeTweets(_menções.Object, _repositorioDeTweetsParaProcessar.Object, new Mock<IRespostasParaRetuitar>().Object, new Mock<ITimeline>().Object);
         }
 
-        private void OVerificadorVerificaOsTweets()
+        private void OAvaliadorVerificaOsTweets()
         {
             _avaliadorDeTweets.VerificarTweetsNovos();
         }
 
-        private void AFileDeProcessamentoTemUmTweetParProcessar()
+        private void AFilaDeProcessamentoTemUmTweetParaProcessar()
         {
-            _repositorioDeTweetsParaProcessar.Verify(r => r.Adicionar(_listaDeTweetsNovos), Times.Once());
+            _repositorioDeTweetsParaProcessar.Verify(r => r.Adicionar(_tweetsNovos.Object), Times.Once());
         }
+
+        private void OutroAvaliadorDeTweets()
+        {
+            _outroAvaliadorDeTweets = new AvaliadorDeTweets(_menções.Object, _repositorioDeTweetsParaProcessar.Object, new Mock<IRespostasParaRetuitar>().Object, new Mock<ITimeline>().Object);
+        }
+
+        private void OAvaliadorVerificaNovamenteOsTweets()
+        {
+            _outroAvaliadorDeTweets.VerificarTweetsNovos();
+        }
+
+        private void FoiPassadoZeroComoUltimoTweetNaPrimeiraChamada()
+        {
+            _menções.Verify(m => m.ObterNovos(IdQuandoNaoHaUmaAnterior), Times.Once());
+        }
+
+        private void OIdDoUltimoTweetFoiPassadoNaSegundaChamada()
+        {
+            _menções.Verify(m => m.ObterNovos(UltimoId), Times.Once());
+        }
+
+
     }
 }

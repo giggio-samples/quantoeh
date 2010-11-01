@@ -17,7 +17,7 @@ namespace QuantoEh.Dominio
             IdMaisAlto = ultimoId;
         }
 
-        public ulong IdMaisAlto { get; private set; }
+        public virtual ulong IdMaisAlto { get; private set; }
 
         public virtual IEnumerable<TweetParaProcessar> Novos { get { return _novos; } }
 

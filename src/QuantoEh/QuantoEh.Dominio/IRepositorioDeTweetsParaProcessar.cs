@@ -4,7 +4,8 @@ namespace QuantoEh.Dominio
 {
     public interface IRepositorioDeTweetsParaProcessar 
     {
-        void Adicionar(IEnumerable<TweetParaProcessar> tweetsParaProcessar);
+        void Adicionar(TweetsNovos tweetsNovos);
         IEnumerable<TweetParaProcessar> ObterTodos();
+        ulong ObterUltimoId();
     }
 }
