@@ -35,13 +35,6 @@
     <ServiceConfiguration Include="ServiceConfiguration.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QuantoEh.WebApp\QuantoEh.WebApp.csproj">
-      <Name>QuantoEh.WebApp</Name>
-      <Project>{1ee22cb9-cf70-4994-b7ea-663f4e933fa8}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>QuantoEh.WebApp</RoleName>
-    </ProjectReference>
     <ProjectReference Include="..\QuantoEh.Worker\QuantoEh.Worker.csproj">
       <Name>QuantoEh.Worker</Name>
       <Project>{348f6451-6844-4acc-876f-34159eb3e3cf}</Project>
