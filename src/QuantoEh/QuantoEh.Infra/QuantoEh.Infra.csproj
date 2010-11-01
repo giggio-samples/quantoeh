@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CachedPinAuthorizer.cs" />
     <Compile Include="ConfiguracaoArmazenamentoAzure.cs" />
     <Compile Include="DAOFila.cs" />
     <Compile Include="DAOTwitter.cs" />

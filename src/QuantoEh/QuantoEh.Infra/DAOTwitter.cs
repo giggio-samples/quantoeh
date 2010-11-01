@@ -12,22 +12,9 @@ namespace QuantoEh.Infra
         private static CachedPinAuthorizer _autorizadorPin;
         public TweetsNovos ObterNovos(ulong ultimoId)
         {
-            _autorizadorPin = new CachedPinAuthorizer
-                                  {
-                                      ConsumerKey = ConfigurationManager.AppSettings["twitterConsumerKey"],
-                                      ConsumerSecret = ConfigurationManager.AppSettings["twitterConsumerSecret"]
-                                  };
-            _autorizadorPin.MarcarComoAutorizado(
-                ConfigurationManager.AppSettings["twitterScreenName"],
-                ConfigurationManager.AppSettings["twitterUserID"],
-                ConfigurationManager.AppSettings["twitterOAuthToken"],
-                ConfigurationManager.AppSettings["twitterOAuthTokenSecret"]);
-
-            //_autorizadorPin.Authorize();
-
-            var context = new TwitterContext(_autorizadorPin);
+            var contextoTwitter = ObterContextoTwitter();
             ultimoId = ultimoId <= 0 ? 1 : ultimoId;
-            var statuses = (from m in context.Status
+            var statuses = (from m in contextoTwitter.Status
                             where m.Type == StatusType.Mentions &
                             m.SinceID == ultimoId
                             select m).ToList();
@@ -44,33 +31,27 @@ namespace QuantoEh.Infra
         {
             throw new NotImplementedException();
         }
-    }
 
-    public class CachedPinAuthorizer : PinAuthorizer
-    {
-        public void MarcarComoAutorizado(string screenName, string userId, string oAuthToken, string oAuthTokenSecret)
+        private static TwitterContext ObterContextoTwitter()
         {
-            ScreenName = screenName;
-            UserId = userId;
-            OAuthTwitter.OAuthToken = oAuthToken;
-            OAuthTwitter.OAuthTokenSecret = oAuthTokenSecret;
-            IsAuthorized = true;
+            MontarObjetoDeAutorizacao();
+            return new TwitterContext(_autorizadorPin);
         }
-        public string ObterLinkParaAutenticacao()
+
+        private static void MontarObjetoDeAutorizacao()
         {
-            var link = OAuthTwitter.AuthorizationLinkGet(OAuthRequestTokenUrl, OAuthAuthorizeUrl, "oob", false, false);
-            return link;
-        }
-        public void ObterDadosDeAutenticacao(string link, string pin, out string screenName, out string userId, out string oAuthToken, out string oAuthTokenSecret)
-        {
-            oAuthToken =
-                (from nameValPair in new Uri(link).Query.TrimStart('?').Split('&')
-                 let pair = nameValPair.Split('=')
-                 where pair[0] == "oauth_token"
-                 select pair[1])
-                    .SingleOrDefault();
-            OAuthTwitter.AccessTokenGet(oAuthToken, pin, OAuthAccessTokenUrl, string.Empty, out screenName, out userId);
-            oAuthTokenSecret = OAuthTwitter.OAuthTokenSecret;
+            if (_autorizadorPin != null) return;
+            _autorizadorPin = new CachedPinAuthorizer
+                                  {
+                                      ConsumerKey = ConfigurationManager.AppSettings["twitterConsumerKey"],
+                                      ConsumerSecret = ConfigurationManager.AppSettings["twitterConsumerSecret"]
+                                  };
+            _autorizadorPin.MarcarComoAutorizado(
+                ConfigurationManager.AppSettings["twitterScreenName"],
+                ConfigurationManager.AppSettings["twitterUserID"],
+                ConfigurationManager.AppSettings["twitterOAuthToken"],
+                ConfigurationManager.AppSettings["twitterOAuthTokenSecret"]);
+            //_autorizadorPin.Authorize();
         }
     }
 }
