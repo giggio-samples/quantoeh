@@ -2,7 +2,7 @@
 using QuantoEh.Dominio;
 using StoryQ.pt_BR;
 
-namespace QuantoEh.Tests.Worker
+namespace QuantoEh.Tests
 {
     [TestFixture]
     public class ParsearTweet

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using QuantoEh.Dominio;
 using StoryQ.pt_BR;
 using NUnit.Framework;
 
-namespace QuantoEh.Tests.Worker
+namespace QuantoEh.Tests
 {
     [TestFixture]
     public class ReconhecerTweets
