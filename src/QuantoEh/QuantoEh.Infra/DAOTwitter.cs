@@ -29,7 +29,11 @@ namespace QuantoEh.Infra
 
         public void Postar(IEnumerable<string> respostas)
         {
-            throw new NotImplementedException();
+            var contextoTwitter = ObterContextoTwitter();
+            foreach (var resposta in respostas)
+            {
+                contextoTwitter.UpdateStatus(resposta);
+            }
         }
 
         private static TwitterContext ObterContextoTwitter()
