@@ -45,11 +45,13 @@ namespace QuantoEh.Tests
                                 };
             _respostasParaRetuitar = new Mock<IRespostasParaRetuitar>();
             _respostasParaRetuitar.Setup(r => r.ObterTodas()).Returns(respostas).Verifiable();
-        }
+        }   
 
         private void UmAvaliadordorDeTweets()
         {
-            _avaliadorDeTweets = new AvaliadorDeTweets(new Mock<IMenções>().Object, new Mock<IRepositorioDeTweetsParaProcessar>().Object, _respostasParaRetuitar.Object, new Mock<ITimeline>().Object);
+            var timeline = new Mock<ITimeline>();
+            timeline.Setup(t => t.Postar(It.IsAny<IEnumerable<Resposta>>())).Returns(2);
+            _avaliadorDeTweets = new AvaliadorDeTweets(new Mock<IMenções>().Object, new Mock<IRepositorioDeTweetsParaProcessar>().Object, _respostasParaRetuitar.Object, timeline.Object);
         }
 
         private void OAvaliadorRetuitaOsCalculosJaFeitos()
