@@ -9,10 +9,13 @@ namespace QuantoEh.Infra.EntidadesAzure
     {
         public UltimoId() : base("UID", "0") { }
 
-        public ulong Id
+        public void SetId(ulong value)
         {
-            get { return Convert.ToUInt64(RowKey); }
-            set { RowKey = value.ToString(); }
+            RowKey = value.ToString();
+        }
+        public ulong GetId()
+        {
+            return Convert.ToUInt64(RowKey);
         }
     }
 }

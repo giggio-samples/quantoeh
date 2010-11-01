@@ -45,7 +45,6 @@
     <Reference Include="Boo.Lang.Parser">
       <HintPath>..\..\..\libs\boo\Boo.Lang.Parser.dll</HintPath>
     </Reference>
-    <Reference Include="Kerr.Credentials, Version=1.0.0.1, Culture=neutral, PublicKeyToken=ce7a2d015f9fdd1b, processorArchitecture=x86" />
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

@@ -23,11 +23,13 @@ namespace QuantoEh.Infra
             var ultimo = ctx.CreateQuery<UltimoId>("UltimoId").FirstOrDefault();
             if (ultimo != null)
             {
-                ultimo.Id = ultimoId;
+                ultimo.SetId(ultimoId);
             }
             else
             {
-                ctx.AddObject("UltimoId", new UltimoId{ Id = ultimoId});                
+                var id = new UltimoId();
+                id.SetId(ultimoId);
+                ctx.AddObject("UltimoId", id);
             }
             ctx.SaveChanges(SaveChangesOptions.ReplaceOnUpdate);
         }
@@ -36,7 +38,7 @@ namespace QuantoEh.Infra
         {
             var ctx = ConfiguracaoArmazenamentoAzure.ObterTabela("UltimoId");
             var ultimo = ctx.CreateQuery<UltimoId>("UltimoId").FirstOrDefault();
-            return ultimo == null ? 0 : ultimo.Id;
+            return ultimo == null ? 0 : ultimo.GetId();
         }
 
         private void ColocarNaFilaDeProcessamento(IEnumerable<TweetParaProcessar> tweetsParaProcessar)
