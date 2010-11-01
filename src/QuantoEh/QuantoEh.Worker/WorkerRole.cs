@@ -16,6 +16,7 @@ namespace QuantoEh.Worker
         private bool _continuar = true;
         private Task _encontrarTweets;
         private Task _calcular;
+        private Task _retuitar;
 
         public WorkerRole()
         {
@@ -35,6 +36,7 @@ namespace QuantoEh.Worker
             Trace.TraceInformation("QuantoEh.Worker iniciado");
             IniciarTarefaDeEncontrarTweets();
             IniciarTarefaDeCalculo();
+            IniciarTarefaDeRetuite();
             RodarIndefinidamenteAteTarefasConcluirem();
         }
 
@@ -49,6 +51,19 @@ namespace QuantoEh.Worker
                 Trace.TraceError("Um erro ocorreu: \n" + exception.Message);
                 throw;
             }
+        }
+
+        private void IniciarTarefaDeRetuite()
+        {
+            _retuitar = new Task(() =>
+            {
+                while (_continuar)
+                {
+                    Retuitar();
+                    Thread.Sleep(10000);
+                }
+            }, TaskCreationOptions.LongRunning);
+            _retuitar.Start();
         }
 
         private void IniciarTarefaDeCalculo()
@@ -103,6 +118,20 @@ namespace QuantoEh.Worker
                 Trace.TraceError("Erro:\n{0}", exception.ToString());
             }
             Trace.TraceInformation("Calculados {0} tweets.", calculados);
+        }
+
+        private void Retuitar()
+        {
+            int retuitados = 0;
+            try
+            {
+                retuitados = _avaliadorDeTweets.Retuitar();
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError("Erro:\n{0}", exception.ToString());
+            }
+            Trace.TraceInformation("Retuitados {0} tweets.", retuitados);
         }
 
 

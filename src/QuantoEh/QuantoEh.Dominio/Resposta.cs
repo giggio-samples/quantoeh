@@ -6,6 +6,7 @@ namespace QuantoEh.Dominio
     public class Resposta
     {
         public string Texto { get; set; }
-        public ulong IdTweetOriginal { get; set; }        
+        public ulong IdTweetOriginal { get; set; }
+        public bool Processada { get; set; }
     }
 }

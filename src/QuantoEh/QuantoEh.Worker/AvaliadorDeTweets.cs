@@ -43,8 +43,8 @@ namespace QuantoEh.Worker
         public int Retuitar()
         {
             var respostas = _respostasParaRetuitar.ObterTodas();
-            _timeline.Postar(respostas);
-            return respostas.Count();
+            var totalRespostas = _timeline.Postar(respostas);
+            return totalRespostas;
         }
     }
 }
