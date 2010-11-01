@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using QuantoEh.Dominio;
 using StoryQ.pt_BR;
 
@@ -10,7 +11,7 @@ namespace QuantoEh.Tests
         private CalculadorDeExpressoes _calculador;
         private string _expressao;
         private double _resultado;
-        private ErroDeCalculoException _excecao;
+        private Exception _excecao;
 
         [Test]
         public void CalcularTweetTestes()
@@ -48,16 +49,36 @@ namespace QuantoEh.Tests
                .Dado(UmExpressao_, "12 / 0")
                .E(UmCalculadorDeExpressoes)
                .Quando(SolicitoUmResultado)
-               .Entao(ReceboUmErro)
+               .Entao(ReceboUmErroDeDivisaoPorZero)
+ 
+               .ComCenario("chamar métodos deve falhar")
+               .Dado(UmExpressao_, "System.Diagnostics.Debug.WriteLine(\"Olá\");")
+               .E(UmCalculadorDeExpressoes)
+               .Quando(SolicitoUmResultado)
+               .Entao(ReceboUmErroDeCompilacao)
+
+               .ComCenario("chamar construtores deve falhar")
+               .Dado(UmExpressao_, "new System.DateTime(2010, 1, 1);")
+               .E(UmCalculadorDeExpressoes)
+               .Quando(SolicitoUmResultado)
+               .Entao(ReceboUmErroDeCompilacao)
 
                .Execute();
-
+            
         }
 
-        private void ReceboUmErro()
+        private void ReceboUmErroDeDivisaoPorZero()
         {
             Assert.IsNotNull(_excecao);
             Assert.AreEqual("Internal compiler error: Attempted to divide by zero..", _excecao.Message);
+            _excecao = null;
+        }
+
+        private void ReceboUmErroDeCompilacao()
+        {
+            Assert.IsNotNull(_excecao);
+            Assert.IsAssignableFrom(typeof (Boo.Lang.Compiler.CompilerError), _excecao);
+            _excecao = null;
         }
 
         private void ReceboOResultado_(double resultadoExperado)
@@ -71,7 +92,7 @@ namespace QuantoEh.Tests
             {
                 _resultado = _calculador.Calcular(_expressao);
             }
-            catch (ErroDeCalculoException ex)
+            catch (Exception ex)
             {
                 _excecao = ex;
             }
