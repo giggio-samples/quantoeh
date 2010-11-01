@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetOpenAuth, Version=3.2.0.9177, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL" />
     <Reference Include="LinqToTwitter">
       <HintPath>..\..\..\libs\LinqToTwitter\LinqToTwitter\bin\Debug\LinqToTwitter.dll</HintPath>
     </Reference>
