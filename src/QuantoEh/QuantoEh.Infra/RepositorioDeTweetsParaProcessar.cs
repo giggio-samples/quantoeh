@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Services.Client;
-using System.Data.Services.Common;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.WindowsAzure.StorageClient;
 using QuantoEh.Dominio;
+using QuantoEh.Infra.EntidadesAzure;
 
 namespace QuantoEh.Infra
 {
@@ -17,12 +16,7 @@ namespace QuantoEh.Infra
             ColocarNaFilaDeProcessamento(tweetsNovos.Novos);
             ArmazenarUltimoIdPesquisado(tweetsNovos.IdMaisAlto);
         }
-        [DataServiceEntity]
-        [DataServiceKey("Id")]
-        private class UltimoId
-        {
-            public ulong Id { get; set; }
-        }
+        
         private void ArmazenarUltimoIdPesquisado(ulong ultimoId)
         {
             var ctx = ConfiguracaoArmazenamentoAzure.ObterTabela("UltimoId");

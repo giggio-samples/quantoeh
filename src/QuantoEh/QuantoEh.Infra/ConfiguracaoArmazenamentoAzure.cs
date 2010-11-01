@@ -48,11 +48,11 @@ namespace QuantoEh.Infra
         {
             return ObterTabela(ObterContaDeArmazenamento(), nomeTabela);
         }
-        private static DataServiceContext ObterTabela(CloudStorageAccount cloudStorageAccount, string nomeTabela)
+        private static TableServiceContext ObterTabela(CloudStorageAccount cloudStorageAccount, string nomeTabela)
         {
             var cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
             cloudTableClient.CreateTableIfNotExist(nomeTabela);
-            var ctx = new DataServiceContext(cloudTableClient.BaseUri);
+            var ctx = new TableServiceContext(cloudStorageAccount.TableEndpoint.ToString(), cloudTableClient.Credentials);// cloudTableClient.BaseUri.ToString()
             return ctx;
         }
     }
