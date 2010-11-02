@@ -40,8 +40,15 @@ namespace QuantoEh.Infra
         private static void ConfigurarArmazenamentoAzure()
         {
             CloudStorageAccount
-                .SetConfigurationSettingPublisher((configName, configSetter) => 
-                    configSetter(RoleEnvironment.GetConfigurationSettingValue(configName)));
+                .SetConfigurationSettingPublisher((configName, configSetter) =>
+                                                      {
+                                                          if (RoleEnvironment.IsAvailable)
+                                                            configSetter(RoleEnvironment.GetConfigurationSettingValue(configName));
+                                                          else
+                                                          {
+                                                              configSetter(ConfigurationManager.AppSettings[configName]);
+                                                          }
+                                                      });
         }
 
         public static DataServiceContext ObterTabela(string nomeTabela)
