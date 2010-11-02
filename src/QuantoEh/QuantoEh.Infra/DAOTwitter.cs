@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
 using LinqToTwitter;
 using QuantoEh.Dominio;
 
@@ -33,6 +36,7 @@ namespace QuantoEh.Infra
         {
             var quantidadeDeRespostas = 0;
             var contextoTwitter = ObterContextoTwitter();
+            var erros = "";
             foreach (var resposta in respostas)
             {
                 try
@@ -43,8 +47,27 @@ namespace QuantoEh.Infra
                 catch (TwitterQueryException exception)
                 {
                     if (exception.Response.Error != "Status is a duplicate.")
-                        throw;
-                    resposta.Processada = true;
+                        erros += exception + "\n";
+                    else
+                        resposta.Processada = true;
+                }
+                catch (WebException exception)
+                {
+                    string textoResposta;
+                    using (var sr = new StreamReader(exception.Response.GetResponseStream()))
+                    {
+                        textoResposta = string.Format("{0}\nResposta:{1}\n", exception, sr.ReadToEnd());
+                    }
+                    erros += textoResposta;
+                }
+                catch (Exception exception)
+                {
+                    erros += exception + "\n";
+                }
+
+                if (!string.IsNullOrWhiteSpace(erros))
+                {
+                    Trace.TraceError("Erros ao retuitar:\n{0}", erros);
                 }
                 quantidadeDeRespostas++;
             }
