@@ -27,19 +27,40 @@ namespace QuantoEh.Tests
                .EuQuero("que o avaliador calcule meus tweets")
 
                .ComCenario("tweet bem formado com soma simples")
-               .Dado(UmRepositorioDeTweetsParaProcessarCom2Tweets)
+               .Dado(UmRepositorioDeTweetsParaProcessarCom2TweetsBons)
                .E(UmaListaDeRespostas)
                .E(UmAvaliadordorDeTweets)
                .Quando(OAvaliadorCalculaOsTweets)
                .Entao(AFileDeProcessamentoDeCalculoFoiZerada)
                .E(AFilaDeRetweetTem2TweetsParaRetuitar)
-               .E(OAvaliadorConfirmouQue2TuitesForamProcessados)
+               .E(OAvaliadorConfirmouQue_TuitesForamProcessados, 2)
+
+               .ComCenario("tweets bons e maus misturados")
+               .Dado(UmRepositorioDeTweetsParaProcessarCom2TweetsBonsE1RuimNoMeio)
+               .E(UmaListaDeRespostas)
+               .E(UmAvaliadordorDeTweets)
+               .Quando(OAvaliadorCalculaOsTweets)
+               .Entao(AFileDeProcessamentoDeCalculoFoiZerada)
+               .E(AFilaDeRetweetTem2TweetsParaRetuitar)
+               .E(OAvaliadorConfirmouQue_TuitesForamProcessados, 3)
 
                .Execute();
 
         }
 
-        private void UmRepositorioDeTweetsParaProcessarCom2Tweets()
+        private void UmRepositorioDeTweetsParaProcessarCom2TweetsBonsE1RuimNoMeio()
+        {
+            _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>();
+            var listaDeTweetsNovos = new List<TweetParaProcessar>
+                                                          {
+                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 + 3", 2),
+                                                              new TweetParaProcessar("testequantoeh: @quantoeh 9 ** 999", 2),
+                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 * 3", 3)
+                                                          };
+            _repositorioDeTweetsParaProcessar.Setup(r => r.ObterTodos()).Returns(listaDeTweetsNovos);
+        }
+
+        private void UmRepositorioDeTweetsParaProcessarCom2TweetsBons()
         {
             _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>();
             var listaDeTweetsNovos = new List<TweetParaProcessar>
@@ -76,9 +97,9 @@ namespace QuantoEh.Tests
             _respostasParaRetuitar.Verify(r => r.Adicionar(It.Is<Resposta>(res => res.Texto == "6 RT @testequantoeh: @quantoeh 2 * 3")));
         }
 
-        private void OAvaliadorConfirmouQue2TuitesForamProcessados()
+        private void OAvaliadorConfirmouQue_TuitesForamProcessados(int processadosEsperados)
         {
-            Assert.AreEqual(2, _calculados);
+            Assert.AreEqual(processadosEsperados, _calculados);
         }
     }
 }

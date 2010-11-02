@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using QuantoEh.Dominio;
 
@@ -33,8 +34,15 @@ namespace QuantoEh.Worker
             int quantidade = 0;
             foreach (var tweetParaProcessar in tweetsParaProcessar)
             {
-                var resultado = tweetParaProcessar.ProcessarResposta();
-                _respostasParaRetuitar.Adicionar(resultado);
+                try
+                {
+                    var resultado = tweetParaProcessar.ProcessarResposta();
+                    _respostasParaRetuitar.Adicionar(resultado);
+                }
+                catch (Exception exception)
+                {
+                    Trace.TraceError("Erro ao calcular:\n{0}", exception.ToString());
+                }
                 quantidade++;
             }
             return quantidade;
