@@ -9,7 +9,7 @@
     <SourceDir>QuantoEh\</SourceDir>
 
     <Configuration>Debug</Configuration>
-    <Platform>x86</Platform>
+    <Platform>Any CPU</Platform>
     
     <TestAssembly>$(BuildDir)\QuantoEh.Tests.dll</TestAssembly>
   
