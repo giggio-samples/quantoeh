@@ -51,6 +51,13 @@ namespace QuantoEh.Infra
                     contextoTwitter.UpdateStatus(resposta.Texto, resposta.IdTweetOriginal.ToString());
                     resposta.Processada = true;
                 }
+                catch (ArgumentException exception)
+                {
+                    if (exception.ParamName.ToLower() == "status")
+                        erros += string.Format("Erro ao tuitar status {0}\n{1}\n", resposta.Texto, exception);
+                    else
+                        erros += exception + "\n";
+                }
                 catch (TwitterQueryException exception)
                 {
                     if (exception.Response.Error != "Status is a duplicate.")
