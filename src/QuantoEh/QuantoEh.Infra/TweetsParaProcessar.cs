@@ -25,17 +25,19 @@ namespace QuantoEh.Infra
             var ultimo = ctx.CreateQuery<UltimoId>("UltimoId").FirstOrDefault();
             if (ultimo != null)
             {
-                Trace.TraceInformation("Setando último id para {0}", ultimoId);
-                ultimo.SetId(ultimoId);
+                if (ultimo.GetId() == ultimoId)
+                {
+                    Trace.TraceInformation("Nada a atualizar, o último id {0} se mantém.", ultimoId);
+                    return;
+                }
+                Trace.TraceInformation("Excluindo o ultimo id", ultimo.GetId());
+                ctx.DeleteObject(ultimo);
             }
-            else
-            {
-                Trace.TraceInformation("Criando último id para {0}", ultimoId);
-                var id = new UltimoId();
-                id.SetId(ultimoId);
-                ctx.AddObject("UltimoId", id);
-            }
-            ctx.SaveChanges(SaveChangesOptions.ReplaceOnUpdate);
+            Trace.TraceInformation("Criando último id para {0}", ultimoId);
+            var novoUltimoId = new UltimoId();
+            novoUltimoId.SetId(ultimoId);
+            ctx.AddObject("UltimoId", novoUltimoId);
+            ctx.SaveChanges();
         }
 
         public ulong ObterUltimoId()
