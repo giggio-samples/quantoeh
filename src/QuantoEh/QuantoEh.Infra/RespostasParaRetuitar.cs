@@ -42,6 +42,10 @@ namespace QuantoEh.Infra
             var fila = ConfiguracaoArmazenamentoAzure.ObterFila("retweets");
             return fila;
         }
-
+        public void ResetFila()
+        {
+            var fila = ObterFila();
+            fila.Clear();
+        }
     }
 }

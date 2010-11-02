@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Diagnostics;
 using System.IO;
@@ -83,5 +84,10 @@ namespace QuantoEh.Infra
             return fila;
         }
 
+        public void ResetFila()
+        {
+            var fila = ObterFila();
+            fila.Clear();
+        }
     }
 }
