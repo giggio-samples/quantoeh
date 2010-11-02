@@ -9,7 +9,7 @@ namespace QuantoEh.Worker
         private readonly IMenções _menções;
         private readonly IRepositorioDeTweetsParaProcessar _repositorioDeTweetsParaProcessar;
         private readonly IRespostasParaRetuitar _respostasParaRetuitar;
-        private ITimeline _timeline;
+        private readonly ITimeline _timeline;
 
         public AvaliadorDeTweets(IMenções menções, IRepositorioDeTweetsParaProcessar repositorioDeTweetsParaProcessar, IRespostasParaRetuitar respostasParaRetuitar, ITimeline timeline)
         {

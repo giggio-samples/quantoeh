@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -34,10 +35,22 @@ namespace QuantoEh.Worker
         public override void Run()
         {
             Trace.TraceInformation("QuantoEh.Worker iniciado");
-            IniciarTarefaDeEncontrarTweets();
-            IniciarTarefaDeCalculo();
-            IniciarTarefaDeRetuite();
+            Trace.WriteLine("QuantoEh.Worker iniciado", "Information");
+
+            int pesquisa, calculo, retuite;
+            ObterTempos(out pesquisa, out calculo, out retuite);
+
+            IniciarTarefaDeEncontrarTweets(pesquisa);
+            IniciarTarefaDeCalculo(calculo);
+            IniciarTarefaDeRetuite(retuite);
             RodarIndefinidamenteAteTarefasConcluirem();
+        }
+
+        private void ObterTempos(out int pesquisa, out int calculo, out int retuite)
+        {
+            pesquisa = Convert.ToInt32(ConfigurationManager.AppSettings["TempoEntrePesquisa"]);
+            calculo = Convert.ToInt32(ConfigurationManager.AppSettings["TempoEntreCalculo"]);
+            retuite = Convert.ToInt32(ConfigurationManager.AppSettings["TempoEntreRetuite"]);
         }
 
         private void RodarIndefinidamenteAteTarefasConcluirem()
@@ -53,40 +66,40 @@ namespace QuantoEh.Worker
             }
         }
 
-        private void IniciarTarefaDeRetuite()
+        private void IniciarTarefaDeRetuite(int espera)
         {
             _retuitar = new Task(() =>
             {
                 while (_continuar)
                 {
                     Retuitar();
-                    Thread.Sleep(10000);
+                    Thread.Sleep(espera * 1000);
                 }
             }, TaskCreationOptions.LongRunning);
             _retuitar.Start();
         }
 
-        private void IniciarTarefaDeCalculo()
+        private void IniciarTarefaDeCalculo(int espera)
         {
             _calcular = new Task(() =>
                                   {
                                       while (_continuar)
                                       {
                                           Calcular();
-                                          Thread.Sleep(2000);
+                                          Thread.Sleep(espera * 1000);
                                       }
                                   }, TaskCreationOptions.LongRunning);
             _calcular.Start();
         }
 
-        private void IniciarTarefaDeEncontrarTweets()
+        private void IniciarTarefaDeEncontrarTweets(int espera)
         {
             _encontrarTweets = new Task(() =>
                                             {
                                                 while (_continuar)
                                                 {
                                                     EncontrarTweets();
-                                                    Thread.Sleep(10000);
+                                                    Thread.Sleep(espera * 1000);
                                                 }
                                             }, TaskCreationOptions.LongRunning);
             _encontrarTweets.Start();
@@ -145,8 +158,10 @@ namespace QuantoEh.Worker
         {
             // Set the maximum number of concurrent connections 
             ServicePointManager.DefaultConnectionLimit = 12;
-            //DiagnosticMonitor.Start(ConfiguracaoArmazenamentoAzure.ObterContaDeArmazenamento(), DiagnosticMonitor.GetDefaultInitialConfiguration());
-            DiagnosticMonitor.Start("DiagnosticsConnectionString");
+
+            var config = DiagnosticMonitor.GetDefaultInitialConfiguration();
+            config.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(1);
+            DiagnosticMonitor.Start("DiagnosticsConnectionString", config);
 
             // For information on handling configuration changes
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
