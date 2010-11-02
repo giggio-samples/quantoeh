@@ -61,9 +61,22 @@ namespace QuantoEh.Infra
                 catch (TwitterQueryException exception)
                 {
                     if (exception.Response.Error != "Status is a duplicate.")
+                    {
+                        if (exception.InnerException != null && exception.GetType() == typeof(WebException))
+                        {
+                            string textoResposta;
+                            using (var sr = new StreamReader(((WebException)exception.InnerException).Response.GetResponseStream()))
+                            {
+                                textoResposta = string.Format("{0}\nResposta:{1}\n", exception, sr.ReadToEnd());
+                            }
+                            erros += textoResposta;
+                        }
                         erros += exception + "\n";
+                    }
                     else
+                    {
                         resposta.Processada = true;
+                    }
                 }
                 catch (WebException exception)
                 {

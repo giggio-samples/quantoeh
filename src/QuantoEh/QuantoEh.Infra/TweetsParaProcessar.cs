@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Services.Client;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -23,10 +24,12 @@ namespace QuantoEh.Infra
             var ultimo = ctx.CreateQuery<UltimoId>("UltimoId").FirstOrDefault();
             if (ultimo != null)
             {
+                Trace.TraceInformation("Setando último id para {0}", ultimoId);
                 ultimo.SetId(ultimoId);
             }
             else
             {
+                Trace.TraceInformation("Criando último id para {0}", ultimoId);
                 var id = new UltimoId();
                 id.SetId(ultimoId);
                 ctx.AddObject("UltimoId", id);
