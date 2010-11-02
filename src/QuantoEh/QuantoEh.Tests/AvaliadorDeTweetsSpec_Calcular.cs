@@ -53,9 +53,9 @@ namespace QuantoEh.Tests
             _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>();
             var listaDeTweetsNovos = new List<TweetParaProcessar>
                                                           {
-                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 + 3", 2),
-                                                              new TweetParaProcessar("testequantoeh: @quantoeh 9 ** 999", 2),
-                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 * 3", 3)
+                                                              new TweetParaProcessar("testequantoeh", "@quantoeh 2 + 3", 2),
+                                                              new TweetParaProcessar("testequantoeh", "@quantoeh 9 ** 999", 2),
+                                                              new TweetParaProcessar("testequantoeh", "@quantoeh 2 * 3", 3)
                                                           };
             _repositorioDeTweetsParaProcessar.Setup(r => r.ObterTodos()).Returns(listaDeTweetsNovos);
         }
@@ -65,8 +65,8 @@ namespace QuantoEh.Tests
             _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>();
             var listaDeTweetsNovos = new List<TweetParaProcessar>
                                                           {
-                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 + 3", 2),
-                                                              new TweetParaProcessar("testequantoeh: @quantoeh 2 * 3", 3)
+                                                              new TweetParaProcessar("testequantoeh", "@quantoeh 2 + 3", 2),
+                                                              new TweetParaProcessar("testequantoeh", "@quantoeh 2 * 3", 3)
                                                           };
             _repositorioDeTweetsParaProcessar.Setup(r => r.ObterTodos()).Returns(listaDeTweetsNovos);
         }

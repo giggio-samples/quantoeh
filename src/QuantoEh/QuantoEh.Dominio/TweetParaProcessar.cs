@@ -7,9 +7,13 @@ namespace QuantoEh.Dominio
     public class TweetParaProcessar : ISerializable
     {
         
-        public TweetParaProcessar(string textoTweet, ulong id)
+        public TweetParaProcessar(string nome, string textoTweet, ulong id)
         {
-            Texto = textoTweet;
+            if (!textoTweet.ToLower().StartsWith("@quantoeh"))
+            {
+                throw new ArgumentException("Expressões para o quantoeh devem começar diretamente chamando a conta.");
+            }
+            Texto = string.Format("{0}: {1}", nome, textoTweet);
             Id = id;
         }
 

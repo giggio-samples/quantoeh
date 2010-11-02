@@ -9,6 +9,7 @@ namespace QuantoEh.Tests
     public class ReconhecerTweets
     {
         private string _textoTweet;
+        private string _usuario;
         private TweetParaProcessar _tweetParaProcessar;
         private FilaParaProcessamentoDeTweets _filaParaProcessamentoDeTweets;
 
@@ -53,12 +54,13 @@ namespace QuantoEh.Tests
 
         private void UmTextoDeUmTweetBemFormado()
         {
-            _textoTweet = "giovannibassi @quantoeh 2 + 3";
+            _textoTweet = "@quantoeh 2 + 3";
+            _usuario = "giovannibassi";
         }
 
         private void CrioUmTweetParaProcessar()
         {
-            _tweetParaProcessar = new TweetParaProcessar(_textoTweet, 1);
+            _tweetParaProcessar = new TweetParaProcessar(_usuario, _textoTweet, 1);
         }
 
         private void TenhoUmTweetParaProcessar()
@@ -68,7 +70,7 @@ namespace QuantoEh.Tests
 
         private void OTextoDoTweetParaProcessarÉOMesmoDoTextoOriginal()
         {
-            Assert.AreEqual(_textoTweet, _tweetParaProcessar.Texto);
+            Assert.AreEqual(_usuario + ": " + _textoTweet, _tweetParaProcessar.Texto);
         }
     }
 }

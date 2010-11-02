@@ -25,8 +25,15 @@ namespace QuantoEh.Infra
                             select m).ToList();
             if (statuses.Count == 0)
                 return TweetsNovos.Vazio(ultimoId);
-            var tweets = (from r in statuses
-                          select new TweetParaProcessar(r.User.Identifier.ScreenName + ": " + r.Text, Convert.ToUInt64(r.StatusID))).ToList();
+            var tweets = new List<TweetParaProcessar>();
+            foreach (var r in statuses)
+            {
+                try
+                {
+                    tweets.Add(new TweetParaProcessar(r.User.Identifier.ScreenName, r.Text, Convert.ToUInt64(r.StatusID)));
+                }
+                catch (ArgumentException) { }
+            }
             var novoUltimoId = statuses.Max(t => Convert.ToUInt64(t.StatusID));
             var tweetsNovos = new TweetsNovos(tweets, novoUltimoId);
             return tweetsNovos;
@@ -65,11 +72,11 @@ namespace QuantoEh.Infra
                     erros += exception + "\n";
                 }
 
-                if (!string.IsNullOrWhiteSpace(erros))
-                {
-                    Trace.TraceError("Erros ao retuitar:\n{0}", erros);
-                }
                 quantidadeDeRespostas++;
+            }
+            if (!string.IsNullOrWhiteSpace(erros))
+            {
+                Trace.TraceError("Erros ao retuitar:\n{0}", erros);
             }
             return quantidadeDeRespostas;
         }

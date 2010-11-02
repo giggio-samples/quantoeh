@@ -19,27 +19,27 @@ namespace QuantoEh.Tests
                .EuQuero("que o quanto eh calcule meus tweets")
 
                .ComCenario("tweet bem formado com soma simples")
-               .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 2 + 3")
+               .Dado(UmTweetBemFormadoComUsuario_ETexto_, "giovannibassi", "@quantoeh 2 + 3")
                .Quando(SolicitoUmResultadoAEsteTweet)
-               .Entao(TenhoOResultaoEsperado_, "5 RT @giovannibassi @quantoeh 2 + 3")
+               .Entao(TenhoOResultaoEsperado_, "5 RT @giovannibassi: @quantoeh 2 + 3")
 
                .ComCenario("tweet bem formado com soma simples")
-               .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 2 + 4")
+               .Dado(UmTweetBemFormadoComUsuario_ETexto_, "giovannibassi", "@quantoeh 2 + 4")
                .Quando(SolicitoUmResultadoAEsteTweet)
-               .Entao(TenhoOResultaoEsperado_, "6 RT @giovannibassi @quantoeh 2 + 4")
+               .Entao(TenhoOResultaoEsperado_, "6 RT @giovannibassi: @quantoeh 2 + 4")
 
                .ComCenario("tweet bem formado com uma expressao complexa")
-               .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 3 * (2 ** 5) - 5")
+               .Dado(UmTweetBemFormadoComUsuario_ETexto_, "giovannibassi", "@quantoeh 3 * (2 ** 5) - 5")
                .Quando(SolicitoUmResultadoAEsteTweet)
-               .Entao(TenhoOResultaoEsperado_, "91 RT @giovannibassi @quantoeh 3 * (2 ** 5) - 5")
+               .Entao(TenhoOResultaoEsperado_, "91 RT @giovannibassi: @quantoeh 3 * (2 ** 5) - 5")
 
                .Execute();
 
         }
 
-        private void UmTweetBemFormadoComTexto_(string texto)
+        private void UmTweetBemFormadoComUsuario_ETexto_(string usuario, string texto)
         {
-            _tweetParaProcessar = new TweetParaProcessar(texto, 1);
+            _tweetParaProcessar = new TweetParaProcessar(usuario, texto, 1);
         }
 
         private void SolicitoUmResultadoAEsteTweet()
