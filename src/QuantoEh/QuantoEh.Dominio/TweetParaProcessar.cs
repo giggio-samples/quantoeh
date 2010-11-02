@@ -36,7 +36,12 @@ namespace QuantoEh.Dominio
 
         private string MontarRetuite(double resultado)
         {
-            return string.Format("{0} RT @{1}", resultado, Texto);
+            var retuite = string.Format("{0} RT @{1}", resultado, Texto);
+            if (retuite.Length > 140)
+            {
+                retuite = retuite.Substring(0, 135) + " ...";
+            }
+            return retuite;
         }
 
         public override string ToString()
