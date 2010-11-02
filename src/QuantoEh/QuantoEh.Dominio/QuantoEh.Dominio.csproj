@@ -55,7 +55,7 @@
     <Compile Include="ErroDeCalculoException.cs" />
     <Compile Include="FilaParaProcessamentoDeTweets.cs" />
     <Compile Include="IMenções.cs" />
-    <Compile Include="IRepositorioDeTweetsParaProcessar.cs" />
+    <Compile Include="ITweetsParaProcessar.cs" />
     <Compile Include="ITimeline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resposta.cs" />

@@ -8,29 +8,29 @@ namespace QuantoEh.Worker
     public class AvaliadorDeTweets
     {
         private readonly IMenções _menções;
-        private readonly IRepositorioDeTweetsParaProcessar _repositorioDeTweetsParaProcessar;
+        private readonly ITweetsParaProcessar _tweetsParaProcessar;
         private readonly IRespostasParaRetuitar _respostasParaRetuitar;
         private readonly ITimeline _timeline;
 
-        public AvaliadorDeTweets(IMenções menções, IRepositorioDeTweetsParaProcessar repositorioDeTweetsParaProcessar, IRespostasParaRetuitar respostasParaRetuitar, ITimeline timeline)
+        public AvaliadorDeTweets(IMenções menções, ITweetsParaProcessar tweetsParaProcessar, IRespostasParaRetuitar respostasParaRetuitar, ITimeline timeline)
         {
             _menções = menções;
-            _repositorioDeTweetsParaProcessar = repositorioDeTweetsParaProcessar;
+            _tweetsParaProcessar = tweetsParaProcessar;
             _respostasParaRetuitar = respostasParaRetuitar;
             _timeline = timeline;
         }
 
         public int VerificarTweetsNovos()
         {
-            var ultimoId = _repositorioDeTweetsParaProcessar.ObterUltimoId();
+            var ultimoId = _tweetsParaProcessar.ObterUltimoId();
             var tweetsNovos = _menções.ObterNovos(ultimoId);
-            _repositorioDeTweetsParaProcessar.Adicionar(tweetsNovos);
+            _tweetsParaProcessar.Adicionar(tweetsNovos);
             return tweetsNovos.QuantidadeDeNovos;
         }
 
         public int CalcularTweets()
         {
-            var tweetsParaProcessar = _repositorioDeTweetsParaProcessar.ObterTodos();
+            var tweetsParaProcessar = _tweetsParaProcessar.ObterTodos();
             int quantidade = 0;
             foreach (var tweetParaProcessar in tweetsParaProcessar)
             {

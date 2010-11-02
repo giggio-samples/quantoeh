@@ -15,7 +15,7 @@ namespace QuantoEh.Tests
     {
         private Mock<IMenções> _menções;
         private AvaliadorDeTweets _avaliadorDeTweets;
-        private Mock<IRepositorioDeTweetsParaProcessar> _repositorioDeTweetsParaProcessar;
+        private Mock<ITweetsParaProcessar> _repositorioDeTweetsParaProcessar;
         private AvaliadorDeTweets _outroAvaliadorDeTweets;
         private Mock<TweetsNovos> _tweetsNovos;
         private const ulong UltimoId = 15;
@@ -60,7 +60,7 @@ namespace QuantoEh.Tests
 
         private void UmRepositorioDeTweetsParaProcessar()
         {
-            _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>(MockBehavior.Strict);
+            _repositorioDeTweetsParaProcessar = new Mock<ITweetsParaProcessar>(MockBehavior.Strict);
             _repositorioDeTweetsParaProcessar.Setup(r => r.Adicionar(_tweetsNovos.Object));
             var id = IdQuandoNaoHaUmaAnterior;
             _repositorioDeTweetsParaProcessar.Setup(r => r.ObterUltimoId()).Returns(() => id).Callback(() => id = UltimoId);

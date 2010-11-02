@@ -14,7 +14,7 @@ namespace QuantoEh.Tests
     public class AvaliadorDeTweetsSpec_Calcular
     {
         private AvaliadorDeTweets _avaliadorDeTweets;
-        private Mock<IRepositorioDeTweetsParaProcessar> _repositorioDeTweetsParaProcessar;
+        private Mock<ITweetsParaProcessar> _repositorioDeTweetsParaProcessar;
         private Mock<IRespostasParaRetuitar> _respostasParaRetuitar;
         private int _calculados;
 
@@ -50,7 +50,7 @@ namespace QuantoEh.Tests
 
         private void UmRepositorioDeTweetsParaProcessarCom2TweetsBonsE1RuimNoMeio()
         {
-            _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>();
+            _repositorioDeTweetsParaProcessar = new Mock<ITweetsParaProcessar>();
             var listaDeTweetsNovos = new List<TweetParaProcessar>
                                                           {
                                                               new TweetParaProcessar("testequantoeh", "@quantoeh 2 + 3", 2),
@@ -62,7 +62,7 @@ namespace QuantoEh.Tests
 
         private void UmRepositorioDeTweetsParaProcessarCom2TweetsBons()
         {
-            _repositorioDeTweetsParaProcessar = new Mock<IRepositorioDeTweetsParaProcessar>();
+            _repositorioDeTweetsParaProcessar = new Mock<ITweetsParaProcessar>();
             var listaDeTweetsNovos = new List<TweetParaProcessar>
                                                           {
                                                               new TweetParaProcessar("testequantoeh", "@quantoeh 2 + 3", 2),

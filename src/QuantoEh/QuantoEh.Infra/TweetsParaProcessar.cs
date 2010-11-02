@@ -9,7 +9,7 @@ using QuantoEh.Infra.EntidadesAzure;
 
 namespace QuantoEh.Infra
 {
-    public class RepositorioDeTweetsParaProcessar : DAOFila, IRepositorioDeTweetsParaProcessar
+    public class TweetsParaProcessar : DAOFila, ITweetsParaProcessar
     {
         public void Adicionar(TweetsNovos tweetsNovos)
         {

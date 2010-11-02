@@ -52,7 +52,7 @@
     <Compile Include="DAOFila.cs" />
     <Compile Include="DAOTwitter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositorioDeTweetsParaProcessar.cs" />
+    <Compile Include="TweetsParaProcessar.cs" />
     <Compile Include="RespostasParaRetuitar.cs" />
     <Compile Include="EntidadesAzure\UltimoId.cs" />
   </ItemGroup>

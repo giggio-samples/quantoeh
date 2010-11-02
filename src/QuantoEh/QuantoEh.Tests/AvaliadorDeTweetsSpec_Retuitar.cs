@@ -51,7 +51,7 @@ namespace QuantoEh.Tests
         {
             var timeline = new Mock<ITimeline>();
             timeline.Setup(t => t.Postar(It.IsAny<IEnumerable<Resposta>>())).Returns(2);
-            _avaliadorDeTweets = new AvaliadorDeTweets(new Mock<IMenções>().Object, new Mock<IRepositorioDeTweetsParaProcessar>().Object, _respostasParaRetuitar.Object, timeline.Object);
+            _avaliadorDeTweets = new AvaliadorDeTweets(new Mock<IMenções>().Object, new Mock<ITweetsParaProcessar>().Object, _respostasParaRetuitar.Object, timeline.Object);
         }
 
         private void OAvaliadorRetuitaOsCalculosJaFeitos()

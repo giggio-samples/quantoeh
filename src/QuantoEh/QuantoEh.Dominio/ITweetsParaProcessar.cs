@@ -2,7 +2,7 @@
 
 namespace QuantoEh.Dominio
 {
-    public interface IRepositorioDeTweetsParaProcessar 
+    public interface ITweetsParaProcessar 
     {
         void Adicionar(TweetsNovos tweetsNovos);
         IEnumerable<TweetParaProcessar> ObterTodos();
