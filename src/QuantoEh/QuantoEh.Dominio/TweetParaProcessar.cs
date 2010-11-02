@@ -32,7 +32,7 @@ namespace QuantoEh.Dominio
 
         private string MontarRetuite(double resultado)
         {
-            return string.Format("{0} RT {1}", resultado, Texto);
+            return string.Format("{0} RT @{1}", resultado, Texto);
         }
 
         public override string ToString()

@@ -72,8 +72,8 @@ namespace QuantoEh.Tests
 
         private void AFilaDeRetweetTem2TweetsParaRetuitar()
         {
-            _respostasParaRetuitar.Verify(r => r.Adicionar(It.Is<Resposta>(res => res.Texto == "5 RT testequantoeh: @quantoeh 2 + 3")));
-            _respostasParaRetuitar.Verify(r => r.Adicionar(It.Is<Resposta>(res => res.Texto == "6 RT testequantoeh: @quantoeh 2 * 3")));
+            _respostasParaRetuitar.Verify(r => r.Adicionar(It.Is<Resposta>(res => res.Texto == "5 RT @testequantoeh: @quantoeh 2 + 3")));
+            _respostasParaRetuitar.Verify(r => r.Adicionar(It.Is<Resposta>(res => res.Texto == "6 RT @testequantoeh: @quantoeh 2 * 3")));
         }
 
         private void OAvaliadorConfirmouQue2TuitesForamProcessados()

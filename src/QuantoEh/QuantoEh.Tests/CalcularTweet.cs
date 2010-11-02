@@ -21,17 +21,17 @@ namespace QuantoEh.Tests
                .ComCenario("tweet bem formado com soma simples")
                .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 2 + 3")
                .Quando(SolicitoUmResultadoAEsteTweet)
-               .Entao(TenhoOResultaoEsperado_, "5 RT giovannibassi @quantoeh 2 + 3")
+               .Entao(TenhoOResultaoEsperado_, "5 RT @giovannibassi @quantoeh 2 + 3")
 
                .ComCenario("tweet bem formado com soma simples")
                .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 2 + 4")
                .Quando(SolicitoUmResultadoAEsteTweet)
-               .Entao(TenhoOResultaoEsperado_, "6 RT giovannibassi @quantoeh 2 + 4")
+               .Entao(TenhoOResultaoEsperado_, "6 RT @giovannibassi @quantoeh 2 + 4")
 
                .ComCenario("tweet bem formado com uma expressao complexa")
                .Dado(UmTweetBemFormadoComTexto_, "giovannibassi @quantoeh 3 * (2 ** 5) - 5")
                .Quando(SolicitoUmResultadoAEsteTweet)
-               .Entao(TenhoOResultaoEsperado_, "91 RT giovannibassi @quantoeh 3 * (2 ** 5) - 5")
+               .Entao(TenhoOResultaoEsperado_, "91 RT @giovannibassi @quantoeh 3 * (2 ** 5) - 5")
 
                .Execute();
 
