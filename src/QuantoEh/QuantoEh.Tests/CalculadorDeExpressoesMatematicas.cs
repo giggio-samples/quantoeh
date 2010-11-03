@@ -50,6 +50,13 @@ namespace QuantoEh.Tests
                .E(UmCalculadorDeExpressoes)
                .Quando(SolicitoUmResultado)
                .Entao(ReceboUmErroDeDivisaoPorZero)
+                
+               //todo: atender esse cenário:
+               //.ComCenario("parenteses errado")
+               //.Dado(UmExpressao_, "(((1 * 3) * 2)))+1")
+               //.E(UmCalculadorDeExpressoes)
+               //.Quando(SolicitoUmResultado)
+               //.Entao(ReceboUmErroDeCompilacao)
  
                .ComCenario("chamar métodos deve falhar")
                .Dado(UmExpressao_, "System.Diagnostics.Debug.WriteLine(\"Olá\");")
