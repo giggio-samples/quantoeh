@@ -1,0 +1,4 @@
+Para rodar via linha de comando execute o arquivo 
+".\src\build.cmd"
+Para testar, rode:
+".\src\build.cmd test"
