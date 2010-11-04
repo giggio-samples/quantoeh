@@ -9,4 +9,4 @@ Vinicius Quaiato @vquaiato
 Alguns arquivos que podem lhe interessar:
 - rodando.txt => explica como rodar o quanto é na sua máquina, fora da nuvem
 - linhadecomando.txt => explica como compilar e opcionalmente rodar testes via linha de comando
-- arquivosquefaltam.cmd => alguns arquivos não foram versionados por conterem segredos (como a senha do twitter do quanto é, do azure, etc). Você pode rodar este arquivo para criar arquivos de modelo para poder rodar o projeto.
+- arquivosquefaltam.ps1 => alguns arquivos não foram versionados por conterem segredos (como a senha do twitter do quanto é, do azure, etc). Você pode rodar este arquivo para criar arquivos de modelo para poder rodar o projeto. E sim, você tem que rodar no Powershell. Aproveita e aprende!
