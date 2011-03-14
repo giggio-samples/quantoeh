@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "QuantoEh", "QuantoEh\QuantoEh.ccproj", "{B441C124-6D70-4B3C-AC13-65A2A9CDDE61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.WebApp", "QuantoEh.WebApp\QuantoEh.WebApp.csproj", "{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Tests", "QuantoEh.Tests\QuantoEh.Tests.csproj", "{73C8B183-2129-46CF-AC0C-EA0653591C27}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Worker", "QuantoEh.Worker\QuantoEh.Worker.csproj", "{348F6451-6844-4ACC-876F-34159EB3E3CF}"
@@ -35,16 +33,6 @@ Global
 		{B441C124-6D70-4B3C-AC13-65A2A9CDDE61}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B441C124-6D70-4B3C-AC13-65A2A9CDDE61}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B441C124-6D70-4B3C-AC13-65A2A9CDDE61}.Release|x86.ActiveCfg = Release|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1EE22CB9-CF70-4994-B7EA-663F4E933FA8}.Release|x86.ActiveCfg = Release|Any CPU
 		{73C8B183-2129-46CF-AC0C-EA0653591C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{73C8B183-2129-46CF-AC0C-EA0653591C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73C8B183-2129-46CF-AC0C-EA0653591C27}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
