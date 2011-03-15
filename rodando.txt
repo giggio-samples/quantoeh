@@ -1,4 +1,4 @@
-Se é a primeira vez que você vai rodar o projeto, primeiro rode o \arquivosquefaltam.cmd. Ele vai criar uns arquivos de config para poder rodar a aplicação que contem informações sensíveis e não são verionados.
+Se é a primeira vez que você vai rodar o projeto, primeiro rode o \arquivosquefaltam.ps1. Ele vai criar uns arquivos de config para poder rodar a aplicação que contem informações sensíveis e não são versionados.
 Procure pelos arquivos que começam com _ e terminam com .config. Você vai precisar preenchê-los com informações da conta do twitter que vai usar. (Todo: Precisa detalhar mais isso, mas por enquanto veja os métodos CachedPinAuthorizer.ObterLinkParaAutenticacao e CachedPinAuthorizer.ObterDadosDeAutenticacao, que, por falar nisso, ainda precisam ser revisados)
 Confirme que tem as ferramentas do Azure instaladas na máquina. Você as consegue em http://windows.azure.com.
 Abra o Visual Studio como administrador, e abra a solution em \src\quantoeh\quantoeh.sln.
