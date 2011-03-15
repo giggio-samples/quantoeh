@@ -59,7 +59,7 @@ namespace QuantoEh.Worker
         {
             try
             {
-                Task.WaitAll(_encontrarTweets, _calcular);
+                Task.WaitAll(_encontrarTweets, _calcular, _retuitar);
             }
             catch (Exception exception)
             {
@@ -158,15 +158,12 @@ namespace QuantoEh.Worker
 
         public override bool OnStart()
         {
-            // Set the maximum number of concurrent connections 
             ServicePointManager.DefaultConnectionLimit = 12;
 
             var config = DiagnosticMonitor.GetDefaultInitialConfiguration();
             config.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(1);
             DiagnosticMonitor.Start("DiagnosticsConnectionString", config);
 
-            // For information on handling configuration changes
-            // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
             RoleEnvironment.Changing += RoleEnvironmentChanging;
 
             return base.OnStart();
@@ -174,10 +171,8 @@ namespace QuantoEh.Worker
 
         private void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
         {
-            // If a configuration setting is changing
             if (e.Changes.Any(change => change is RoleEnvironmentConfigurationSettingChange))
             {
-                // Set e.Cancel to true to restart this role instance
                 e.Cancel = true;
             }
         }
