@@ -13,7 +13,7 @@ namespace QuantoEh.Infra
     public class DAOTwitter : IMenções, ITimeline
     {
         private static readonly string MyTwitterId = ConfigurationManager.AppSettings["twitterUserID"];
-        private static CachedPinAuthorizer _autorizadorPin;
+        private static XAuthAuthorizer _autorizadorPin;
         public TweetsNovos ObterNovos(ulong ultimoId)
         {
             var contextoTwitter = ObterContextoTwitter();
@@ -109,18 +109,31 @@ namespace QuantoEh.Infra
 
         private static void MontarObjetoDeAutorizacao()
         {
+            //todo: alterado, revisar
             if (_autorizadorPin != null) return;
-            _autorizadorPin = new CachedPinAuthorizer
-                                  {
-                                      ConsumerKey = ConfigurationManager.AppSettings["twitterConsumerKey"],
-                                      ConsumerSecret = ConfigurationManager.AppSettings["twitterConsumerSecret"]
-                                  };
-            _autorizadorPin.MarcarComoAutorizado(
-                ConfigurationManager.AppSettings["twitterScreenName"],
-                ConfigurationManager.AppSettings["twitterUserID"],
-                ConfigurationManager.AppSettings["twitterOAuthToken"],
-                ConfigurationManager.AppSettings["twitterOAuthTokenSecret"]);
-            //_autorizadorPin.Authorize();
+
+            var autorizadorPin = new XAuthAuthorizer
+            {
+                Credentials = new XAuthCredentials
+                {
+                    ConsumerKey = ConfigurationManager.AppSettings["twitterConsumerKey"],
+                    ConsumerSecret = ConfigurationManager.AppSettings["twitterConsumerSecret"],
+                    OAuthToken = ConfigurationManager.AppSettings["twitterOAuthToken"],
+                    AccessToken = ConfigurationManager.AppSettings["twitterOAuthTokenSecret"],
+                    UserName = ConfigurationManager.AppSettings["twitterScreenName"],
+                    Password = ConfigurationManager.AppSettings["twitterPassword"],
+                }
+            };
+            try
+            {
+                autorizadorPin.Authorize();
+                _autorizadorPin = autorizadorPin;
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError("Não foi possível autorizar. Erro:\n" + exception.ToString());
+                throw;
+            }
         }
     }
 }

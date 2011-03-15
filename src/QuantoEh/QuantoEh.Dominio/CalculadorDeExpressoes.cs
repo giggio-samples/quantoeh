@@ -10,7 +10,7 @@ namespace QuantoEh.Dominio
     {
         public double Calcular(string expressao)
         {
-            var interpreter = new InteractiveInterpreter2 {RememberLastValue = true};
+            var interpreter = new InteractiveInterpreter {RememberLastValue = true};
             var contexto = interpreter.Parse(new StringInput("expressao", expressao));
             contexto.CompileUnit.Accept(new MethodInvocationFilter());
             var contexto2 = interpreter.EvalCompileUnit(contexto.CompileUnit);

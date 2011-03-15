@@ -4,6 +4,7 @@ using LinqToTwitter;
 
 namespace QuantoEh.Infra
 {
+    //todo:parece que ficou desnecessario, remove?
     public class CachedPinAuthorizer : PinAuthorizer
     {
         public void MarcarComoAutorizado(string screenName, string userId, string oAuthToken, string oAuthTokenSecret)
@@ -12,11 +13,10 @@ namespace QuantoEh.Infra
             UserId = userId;
             OAuthTwitter.OAuthToken = oAuthToken;
             OAuthTwitter.OAuthTokenSecret = oAuthTokenSecret;
-            IsAuthorized = true;
         }
         public string ObterLinkParaAutenticacao()
         {
-            var link = OAuthTwitter.AuthorizationLinkGet(OAuthRequestTokenUrl, OAuthAuthorizeUrl, "oob", false, false);
+            var link = OAuthTwitter.AuthorizationLinkGet(OAuthRequestTokenUrl, OAuthAuthorizeUrl, "oob", false);
             return link;
         }
         public void ObterDadosDeAutenticacao(string link, string pin, out string screenName, out string userId, out string oAuthToken, out string oAuthTokenSecret)
