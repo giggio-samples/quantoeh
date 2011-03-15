@@ -40,3 +40,4 @@ _[Uu]pgradeReport_Files*/
 [Ss]rc/[Bb]uild/
 trunk/[Bb]uild/
 _*.config
+ServiceDefinition.build.csdef
