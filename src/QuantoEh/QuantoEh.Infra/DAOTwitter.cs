@@ -109,7 +109,6 @@ namespace QuantoEh.Infra
 
         private static void MontarObjetoDeAutorizacao()
         {
-            //todo: alterado, revisar
             if (_autorizadorPin != null) return;
 
             var autorizadorPin = new XAuthAuthorizer
