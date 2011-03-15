@@ -7,5 +7,6 @@ namespace QuantoEh.Dominio
         void Adicionar(TweetsNovos tweetsNovos);
         IEnumerable<TweetParaProcessar> ObterTodos();
         ulong ObterUltimoId();
+        void ArmazenarUltimoIdPesquisado(ulong ultimoId);
     }
 }

@@ -65,9 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvaliadorDeInterrupcao.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="ConfiguracaoArmazenamentoAzure.cs" />
     <Compile Include="DAOFila.cs" />
     <Compile Include="DAOTwitter.cs" />
+    <Compile Include="Interromper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TweetsParaProcessar.cs" />
     <Compile Include="RespostasParaRetuitar.cs" />

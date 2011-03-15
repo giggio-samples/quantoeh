@@ -115,12 +115,12 @@ namespace QuantoEh.Infra
             {
                 Credentials = new XAuthCredentials
                 {
-                    ConsumerKey = ConfigurationManager.AppSettings["twitterConsumerKey"],
-                    ConsumerSecret = ConfigurationManager.AppSettings["twitterConsumerSecret"],
-                    OAuthToken = ConfigurationManager.AppSettings["twitterOAuthToken"],
-                    AccessToken = ConfigurationManager.AppSettings["twitterOAuthTokenSecret"],
-                    UserName = ConfigurationManager.AppSettings["twitterScreenName"],
-                    Password = ConfigurationManager.AppSettings["twitterPassword"],
+                    ConsumerKey = Config.TwitterConsumerKey,
+                    ConsumerSecret = Config.TwitterConsumerSecret,
+                    OAuthToken = Config.TwitterOAuthToken,
+                    AccessToken = Config.TwitterOAuthTokenSecret,
+                    UserName = Config.TwitterScreenName,
+                    Password = Config.TwitterPassword,
                 }
             };
             try

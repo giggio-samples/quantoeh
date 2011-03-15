@@ -1,10 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="QuantoEh" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WorkerRole name="QuantoEh.Worker">
+  <WebRole name="QuantoEh.AdminWeb">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <Endpoints>
+      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+    </Endpoints>
+    <Imports>
+      <Import moduleName="Diagnostics" />
+    </Imports>
     <ConfigurationSettings>
-      <Setting name="DiagnosticsConnectionString" />
+      <Setting name="TempoEntrePesquisa" />
+      <Setting name="TempoEntreCalculo" />
+      <Setting name="TempoEntreRetuite" />
+      <Setting name="twitterConsumerKey" />
+      <Setting name="twitterConsumerSecret" />
+      <Setting name="twitterOAuthToken" />
+      <Setting name="twitterOAuthTokenSecret" />
+      <Setting name="twitterUserID" />
+      <Setting name="twitterScreenName" />
+      <Setting name="twitterPassword" />
+      <Setting name="TempoEntreInterrupcaoTemporaria" />
     </ConfigurationSettings>
-    <LocalResources>
-    </LocalResources>
-  </WorkerRole>
+  </WebRole>
 </ServiceDefinition>

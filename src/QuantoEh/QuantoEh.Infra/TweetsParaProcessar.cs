@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Services.Client;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -18,8 +16,8 @@ namespace QuantoEh.Infra
             ColocarNaFilaDeProcessamento(tweetsNovos.Novos);
             ArmazenarUltimoIdPesquisado(tweetsNovos.IdMaisAlto);
         }
-        
-        private void ArmazenarUltimoIdPesquisado(ulong ultimoId)
+
+        public void ArmazenarUltimoIdPesquisado(ulong ultimoId)
         {
             var ctx = ConfiguracaoArmazenamentoAzure.ObterTabela("UltimoId");
             var ultimo = ctx.CreateQuery<UltimoId>("UltimoId").FirstOrDefault();

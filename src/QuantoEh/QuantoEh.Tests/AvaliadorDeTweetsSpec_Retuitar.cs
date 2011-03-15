@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using Moq;
 using NUnit.Framework;
+using QuantoEh.AdminWeb;
 using QuantoEh.Dominio;
-using QuantoEh.Worker;
 using StoryQ.pt_BR;
 
 namespace QuantoEh.Tests

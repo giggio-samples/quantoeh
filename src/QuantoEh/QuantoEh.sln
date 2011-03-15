@@ -5,13 +5,13 @@ Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "QuantoEh", "QuantoEh\Quanto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Tests", "QuantoEh.Tests\QuantoEh.Tests.csproj", "{73C8B183-2129-46CF-AC0C-EA0653591C27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Worker", "QuantoEh.Worker\QuantoEh.Worker.csproj", "{348F6451-6844-4ACC-876F-34159EB3E3CF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Dominio", "QuantoEh.Dominio\QuantoEh.Dominio.csproj", "{D419D7E7-09F4-4F58-A428-75EA922E5AE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Infra", "QuantoEh.Infra\QuantoEh.Infra.csproj", "{E7DE145F-4AC7-4757-A7CA-582FB718F71F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.Utils.CommandLine", "QuantoEh.Utils.CommandLine\QuantoEh.Utils.CommandLine.csproj", "{E94AB8E0-95AF-44CD-BA0B-8EAA5A6C65A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantoEh.AdminWeb", "QuantoEh.AdminWeb\QuantoEh.AdminWeb.csproj", "{F471685C-9C05-492E-A03C-82A7E3C6A38B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,16 +43,6 @@ Global
 		{73C8B183-2129-46CF-AC0C-EA0653591C27}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{73C8B183-2129-46CF-AC0C-EA0653591C27}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{73C8B183-2129-46CF-AC0C-EA0653591C27}.Release|x86.ActiveCfg = Release|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{348F6451-6844-4ACC-876F-34159EB3E3CF}.Release|x86.ActiveCfg = Release|Any CPU
 		{D419D7E7-09F4-4F58-A428-75EA922E5AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D419D7E7-09F4-4F58-A428-75EA922E5AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D419D7E7-09F4-4F58-A428-75EA922E5AE8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -84,6 +74,16 @@ Global
 		{E94AB8E0-95AF-44CD-BA0B-8EAA5A6C65A4}.Release|Mixed Platforms.Build.0 = Release|x86
 		{E94AB8E0-95AF-44CD-BA0B-8EAA5A6C65A4}.Release|x86.ActiveCfg = Release|x86
 		{E94AB8E0-95AF-44CD-BA0B-8EAA5A6C65A4}.Release|x86.Build.0 = Release|x86
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F471685C-9C05-492E-A03C-82A7E3C6A38B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

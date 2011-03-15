@@ -112,13 +112,13 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QuantoEh.AdminWeb\QuantoEh.AdminWeb.csproj">
+      <Project>{F471685C-9C05-492E-A03C-82A7E3C6A38B}</Project>
+      <Name>QuantoEh.AdminWeb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuantoEh.Dominio\QuantoEh.Dominio.csproj">
       <Project>{D419D7E7-09F4-4F58-A428-75EA922E5AE8}</Project>
       <Name>QuantoEh.Dominio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\QuantoEh.Worker\QuantoEh.Worker.csproj">
-      <Project>{348F6451-6844-4ACC-876F-34159EB3E3CF}</Project>
-      <Name>QuantoEh.Worker</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

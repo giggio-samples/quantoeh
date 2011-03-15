@@ -35,12 +35,12 @@
     <ServiceConfiguration Include="ServiceConfiguration.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QuantoEh.Worker\QuantoEh.Worker.csproj">
-      <Name>QuantoEh.Worker</Name>
-      <Project>{348f6451-6844-4acc-876f-34159eb3e3cf}</Project>
+    <ProjectReference Include="..\QuantoEh.AdminWeb\QuantoEh.AdminWeb.csproj">
+      <Name>QuantoEh.AdminWeb</Name>
+      <Project>{f471685c-9c05-492e-a03c-82a7e3c6a38b}</Project>
       <Private>True</Private>
-      <RoleType>Worker</RoleType>
-      <RoleName>QuantoEh.Worker</RoleName>
+      <RoleType>Web</RoleType>
+      <RoleName>QuantoEh.AdminWeb</RoleName>
     </ProjectReference>
   </ItemGroup>
   <!-- Import the target files for this project template -->

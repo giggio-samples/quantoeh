@@ -32,8 +32,8 @@ namespace QuantoEh.Infra
 
         public static CloudStorageAccount ObterContaDeArmazenamento()
         {
-            var contaDeArmazenamento = _contaDeArmazenamento ?? 
-                                            (_contaDeArmazenamento = CloudStorageAccount.FromConfigurationSetting("DiagnosticsConnectionString"));
+            var contaDeArmazenamento = _contaDeArmazenamento ??
+                                            (_contaDeArmazenamento = CloudStorageAccount.FromConfigurationSetting("Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString"));
             return contaDeArmazenamento;
         }
 
