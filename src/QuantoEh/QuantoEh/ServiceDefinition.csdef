@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="QuantoEh" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WebRole name="QuantoEh.AdminWeb">
+  <WebRole name="QuantoEh.AdminWeb" vmsize="ExtraSmall">
     <Sites>
       <Site name="Web">
         <Bindings>
