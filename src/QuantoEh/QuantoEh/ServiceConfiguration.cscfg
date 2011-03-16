@@ -1,9 +1,20 @@
 <?xml version="1.0"?>
 <ServiceConfiguration serviceName="QuantoEh" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration">
-  <Role name="QuantoEh.Worker">
+  <Role name="QuantoEh.AdminWeb">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="DiagnosticsConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="" />
+      <Setting name="TempoEntrePesquisa" value="20" />
+      <Setting name="TempoEntreCalculo" value="10" />
+      <Setting name="TempoEntreRetuite" value="10" />
+      <Setting name="twitterConsumerKey" value="" />
+      <Setting name="twitterConsumerSecret" value="" />
+      <Setting name="twitterOAuthToken" value="" />
+      <Setting name="twitterOAuthTokenSecret" value="" />
+      <Setting name="twitterUserID" value="" />
+      <Setting name="twitterScreenName" value="quantoeh" />
+      <Setting name="twitterPassword" value="" />
+      <Setting name="TempoEntreInterrupcaoTemporaria" value="30" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
