@@ -62,5 +62,12 @@ namespace QuantoEh.Infra
             var ctx = new TableServiceContext(cloudStorageAccount.TableEndpoint.ToString(), cloudTableClient.Credentials);// cloudTableClient.BaseUri.ToString()
             return ctx;
         }
+
+        public static void DroparTabela(string nomeTabela)
+        {
+            var cloudStorageAccount = ObterContaDeArmazenamento();
+            var cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
+            cloudTableClient.DeleteTable(nomeTabela);
+        }
     }
 }

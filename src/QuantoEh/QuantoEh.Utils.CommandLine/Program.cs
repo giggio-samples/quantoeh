@@ -12,10 +12,12 @@ namespace QuantoEh.Utils.CommandLine
         {
             try
             {
-                var tweetsParaProcessar = new TweetsParaProcessar();
-                var respostasParaRetuitar = new RespostasParaRetuitar();
-                tweetsParaProcessar.ResetFila();
-                respostasParaRetuitar.ResetFila();
+                //var tweetsParaProcessar = new TweetsParaProcessar();
+                //var respostasParaRetuitar = new RespostasParaRetuitar();
+                //tweetsParaProcessar.ResetFila();
+                //respostasParaRetuitar.ResetFila();
+
+                ConfiguracaoArmazenamentoAzure.DroparTabela("WADLogsTable");
             }
             catch (Exception exception)
             {

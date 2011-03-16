@@ -21,7 +21,7 @@ namespace QuantoEh.AdminWeb
         private Task _calcular;
         private Task _retuitar;
         private Task _interromper;
-        private AvaliadorDeInterrupcao _avaliadorDeInterrupcao;
+        private readonly AvaliadorDeInterrupcao _avaliadorDeInterrupcao;
 
         public WebRole()
         {
@@ -186,12 +186,18 @@ namespace QuantoEh.AdminWeb
         {
             ServicePointManager.DefaultConnectionLimit = 12;
 
-            var config = DiagnosticMonitor.GetDefaultInitialConfiguration();
-            config.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(1);
+            //IniciarDiagnostico();
 
             RoleEnvironment.Changing += RoleEnvironmentChanging;
 
             return base.OnStart();
+        }
+
+        private static void IniciarDiagnostico()
+        {
+            var config = DiagnosticMonitor.GetDefaultInitialConfiguration();
+            config.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(2);
+            DiagnosticMonitor.Start("Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString", config);
         }
 
         private void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
