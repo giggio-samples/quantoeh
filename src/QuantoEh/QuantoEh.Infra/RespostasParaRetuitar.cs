@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.WindowsAzure.StorageClient;
@@ -14,12 +15,18 @@ namespace QuantoEh.Infra
             var fila = ObterFila();
             var conteudo = Serializar(resposta);
             fila.AddMessage(new CloudQueueMessage(conteudo));
+            Trace.TraceInformation("Tweet colocado na fila de resposta: \n{0}", resposta.Texto);
         }
 
         public IEnumerable<Resposta> ObterTodas()
         {
             var fila = ObterFila();
             var mensagem = fila.GetMessage();
+            if (mensagem == null)
+            {
+                Trace.TraceInformation("Fila de respostas vazia.");
+                yield break;
+            }
             int i = 0;
             while (mensagem != null)
             {
@@ -27,6 +34,7 @@ namespace QuantoEh.Infra
                 {
                     var bin = new BinaryFormatter();
                     var resposta = (Resposta)bin.Deserialize(stream);
+                    Trace.TraceInformation("Tweet obtido da fila de resposta: \n{0}", resposta.Texto);
                     yield return resposta;
                     if (resposta.Processada)
                         fila.DeleteMessage(mensagem);

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using QuantoEh.Infra;
+using Microsoft.WindowsAzure.Diagnostics.Management;
 
 namespace QuantoEh.AdminWeb
 {
@@ -41,8 +39,7 @@ namespace QuantoEh.AdminWeb
 
         public override void Run()
         {
-            Trace.TraceInformation("QuantoEh.Web iniciado");
-            Trace.WriteLine("QuantoEh.Worker iniciado", "Information");
+            Trace.TraceInformation("QuantoEh.AdminWeb iniciado");
 
             var pesquisa = Config.TempoEntrePesquisa;
             var calculo = Config.TempoEntreCalculo;
@@ -133,7 +130,7 @@ namespace QuantoEh.AdminWeb
             }
             catch (Exception exception)
             {
-                Trace.TraceError("Erro:\n{0}", exception.ToString());   
+                Trace.TraceError("Erro ao encontrar twits:\n{0}", exception.ToString());   
             }
             Trace.TraceInformation("Encontrados {0} tweets.", quantidadeDeNovos);
         }
@@ -149,7 +146,7 @@ namespace QuantoEh.AdminWeb
             }
             catch (Exception exception)
             {
-                Trace.TraceError("Erro:\n{0}", exception.ToString());
+                Trace.TraceError("Erro ao calcular:\n{0}", exception.ToString());
             }
             Trace.TraceInformation("Calculados {0} tweets.", calculados);
         }
@@ -166,14 +163,21 @@ namespace QuantoEh.AdminWeb
             }
             catch (Exception exception)
             {
-                Trace.TraceError("Erro:\n{0}", exception.ToString());
+                Trace.TraceError("Erro ao retuitar:\n{0}", exception.ToString());
             }
             Trace.TraceInformation("Retuitados {0} tweets.", retuitados);
         }
 
         private void VerificarInterrupcao()
         {
-            _interromperTemporariamente = _avaliadorDeInterrupcao.VerificaInterrompeTemporariamente();
+            try
+            {
+                _interromperTemporariamente = _avaliadorDeInterrupcao.VerificaInterrompeTemporariamente();
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError("Erro ao verificar interrupção:\n{0}", exception.ToString());
+            }
         }
 
         public override void OnStop()
@@ -186,26 +190,23 @@ namespace QuantoEh.AdminWeb
         {
             ServicePointManager.DefaultConnectionLimit = 12;
 
-            //IniciarDiagnostico();
-
-            RoleEnvironment.Changing += RoleEnvironmentChanging;
+            IniciarDiagnostico();
 
             return base.OnStart();
         }
 
         private static void IniciarDiagnostico()
         {
-            var config = DiagnosticMonitor.GetDefaultInitialConfiguration();
-            config.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(2);
-            DiagnosticMonitor.Start("Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString", config);
-        }
+            //var config = DiagnosticMonitor.GetDefaultInitialConfiguration();
+            //config.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(5);
+            //config.Logs.ScheduledTransferLogLevelFilter = LogLevel.Verbose;
+            //DiagnosticMonitor.Start("Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString", config);
 
-        private void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
-        {
-            if (e.Changes.Any(change => change is RoleEnvironmentConfigurationSettingChange))
-            {
-                e.Cancel = true;
-            }
+            var roleInstanceDiagnosticManager  = ConfiguracaoArmazenamentoAzure.ObterContaDeArmazenamento().CreateRoleInstanceDiagnosticManager(RoleEnvironment.DeploymentId, RoleEnvironment.CurrentRoleInstance.Role.Name, RoleEnvironment.CurrentRoleInstance.Id);
+            var config = roleInstanceDiagnosticManager.GetCurrentConfiguration();
+            config.Logs.ScheduledTransferPeriod = TimeSpan.FromMinutes(5);
+            config.Logs.ScheduledTransferLogLevelFilter = LogLevel.Verbose;
+            roleInstanceDiagnosticManager.SetCurrentConfiguration(config);
         }
 
     }

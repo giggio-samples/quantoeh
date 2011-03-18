@@ -53,6 +53,7 @@ namespace QuantoEh.Infra
                 var conteudo = Serializar(tweet);
                 var mensagem = new CloudQueueMessage(conteudo);
                 fila.AddMessage(mensagem);
+                Trace.TraceInformation("Tweet colocado na fila de processamento para cálculo: {0}", tweet.Texto);
             }
         }
 
@@ -68,6 +69,7 @@ namespace QuantoEh.Infra
                 {
                     var bin = new BinaryFormatter();
                     var tweet = (TweetParaProcessar)bin.Deserialize(stream);
+                    Trace.TraceInformation("Tweet obtido da fila de processamento para cálculo: {0}", tweet.Texto);
                     tweets.Add(tweet);
                 }
                 fila.DeleteMessage(mensagem);

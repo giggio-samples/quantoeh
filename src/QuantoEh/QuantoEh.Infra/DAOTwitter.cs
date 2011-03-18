@@ -12,7 +12,7 @@ namespace QuantoEh.Infra
 {
     public class DAOTwitter : IMenções, ITimeline
     {
-        private static readonly string MyTwitterId = ConfigurationManager.AppSettings["twitterUserID"];
+        private static readonly string MyTwitterId = Config.TwitterUserID;
         private static XAuthAuthorizer _autorizadorPin;
         public TweetsNovos ObterNovos(ulong ultimoId)
         {
@@ -32,7 +32,10 @@ namespace QuantoEh.Infra
                 {
                     tweets.Add(new TweetParaProcessar(r.User.Identifier.ScreenName, r.Text, Convert.ToUInt64(r.StatusID)));
                 }
-                catch (ArgumentException) { }
+                catch (ArgumentException exception)
+                {
+                    Trace.TraceWarning("Não foi possível colocar tweet na fila de processamento. Erro:\n{0}", exception.ToString());
+                }
             }
             var novoUltimoId = statuses.Max(t => Convert.ToUInt64(t.StatusID));
             var tweetsNovos = new TweetsNovos(tweets, novoUltimoId);
@@ -50,6 +53,7 @@ namespace QuantoEh.Infra
                 {
                     contextoTwitter.UpdateStatus(resposta.Texto, resposta.IdTweetOriginal.ToString());
                     resposta.Processada = true;
+                    Trace.TraceInformation("Resposta obtida e retuitada: {0}", resposta.Texto);
                 }
                 catch (ArgumentException exception)
                 {
